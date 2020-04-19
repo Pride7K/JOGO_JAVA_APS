@@ -18,11 +18,12 @@ public class Acessar {
     private Jogo jogo;
     private Plano_Fundo mundo;
 
-    public Plano_Fundo getMundo() {
+    
+    public Plano_Fundo pegarMundo() {
         return mundo;
     }
 
-    public void setMundo(Plano_Fundo mundo) {
+    public void setarMundo(Plano_Fundo mundo) {
         this.mundo = mundo;
     }
 

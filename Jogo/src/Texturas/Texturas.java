@@ -32,7 +32,7 @@ public class Texturas {
         
     }
     
-    public boolean possoEsbarrar()
+    public boolean naoPossoEsbarrar()
     {
         return false;
     }

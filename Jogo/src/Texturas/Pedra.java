@@ -18,4 +18,9 @@ public class Pedra extends Texturas{
         super(SuaviazarCarregamentoImagem.pedra, id);
     }
     
+    @Override
+    public boolean naoPossoEsbarrar()
+    {
+        return true;
+    }
 }

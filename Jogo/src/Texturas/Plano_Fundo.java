@@ -1,5 +1,6 @@
 package Texturas;
 
+import Inicializador.Acessar;
 import Inicializador.Jogo;
 import java.awt.Graphics;
 import java.io.BufferedReader;
@@ -14,9 +15,9 @@ public class Plano_Fundo {
     private int altura, largura;
     private int positionX, positionY;
     private int[][] planoFundo;
-    private Jogo jogo;
-    public Plano_Fundo(Jogo jogo,String caminho) {
-        this.jogo = jogo;
+    private Acessar acessar;
+    public Plano_Fundo(Acessar acessar,String caminho) {
+        this.acessar = acessar;
         carregarIMG(caminho);
     }
 
@@ -30,8 +31,8 @@ public class Plano_Fundo {
         
         //int xVisivelStart = (int) Math.max(0,jogo.pegarCamera().getX() / Texturas.largura_textura + 2),xVisivelFinal = largura;
         //int xVisivelStart = (int) Math.max(0,jogo.pegarCamera().getX() / Texturas.largura_textura),xVisivelFinal = (int) Math.min(largura, (jogo.pegarCamera().getX() + jogo.pegarLargura()) / Texturas.largura_textura);
-        int xVisivelStart = (int) Math.max(0,jogo.pegarCamera().getX() / Texturas.largura_textura),xVisivelFinal = (int) Math.min(largura, (jogo.pegarCamera().getX() + jogo.pegarLargura()) / Texturas.largura_textura + 1);
-        int yVisivelStart = (int) Math.max(0,jogo.pegarCamera().getY() / Texturas.altura_textura),yVisivelFinal = (int) Math.min(altura,(jogo.pegarCamera().getY() + jogo.pegarAltura()) / Texturas.altura_textura + 1);
+        int xVisivelStart = (int) Math.max(0,acessar.pegarCamera().getX() / Texturas.largura_textura),xVisivelFinal = (int) Math.min(largura, (acessar.pegarCamera().getX() + acessar.pegarLargura()) / Texturas.largura_textura + 1);
+        int yVisivelStart = (int) Math.max(0,acessar.pegarCamera().getY() / Texturas.altura_textura),yVisivelFinal = (int) Math.min(altura,(acessar.pegarCamera().getY() + acessar.pegarAltura()) / Texturas.altura_textura + 1);
         
         ///////////// //////////////////////////////////// ////////////// /////////////////// ///////////////
         
@@ -39,13 +40,17 @@ public class Plano_Fundo {
         for (int positionY = yVisivelStart; positionY < yVisivelFinal; positionY++) {
             for (int positionX = xVisivelStart; positionX < xVisivelFinal; positionX++) {
                 //System.out.println(pegarTextura(positionX,positionY));
-                pegarTextura(positionX, positionY).renderizar(grafico, (int) (positionX * Texturas.largura_textura - jogo.pegarCamera().getX()),(int)  (positionY * Texturas.altura_textura - jogo.pegarCamera().getY()));
+                pegarTextura(positionX, positionY).renderizar(grafico, (int) (positionX * Texturas.largura_textura - acessar.pegarCamera().getX()),(int)  (positionY * Texturas.altura_textura - acessar.pegarCamera().getY()));
             }
         }
-        System.out.println("saiu");
+        //System.out.println("saiu");
     }
 
     public Texturas pegarTextura(int x, int y) {
+        if(x < 0 || x >= largura || y < 0 || y >= largura)
+        {
+            return Texturas.pedra;
+        }
         Texturas texturaz = Texturas.texturas[planoFundo[x][y]];
         //System.out.println(planoFundo[x][y]);
         if (texturaz == null) {

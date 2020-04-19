@@ -58,7 +58,7 @@ public class Jogo implements Runnable {
     }
 
     private void atualizar() {
-        System.out.println("caiuAtualizarJogo");
+        //System.out.println("caiuAtualizarJogo");
         teclado.atualizar();
         if(Metodos.pegarPaginaAtual() != null)
         {
@@ -176,7 +176,7 @@ public class Jogo implements Runnable {
             }
             
             if (tempo >= 1000000000) {
-                System.out.println(frames);
+                //System.out.println(frames);
                 frames = 0;
                 tempo = 0;
             }

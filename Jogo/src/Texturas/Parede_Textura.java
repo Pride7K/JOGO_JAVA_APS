@@ -18,7 +18,6 @@ public class Parede_Textura extends Texturas {
         super(SuaviazarCarregamentoImagem.parede, id);
     }
     
-    @Override
     public boolean possoEsbarrar()
     {
         return true;

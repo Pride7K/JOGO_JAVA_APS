@@ -18,14 +18,16 @@ public class JogoPagina extends Metodos {
     public JogoPagina(Acessar acessar)
     {
         super(acessar);
-        jogador = new Jogador(acessar.getJogo(),150,150);
-        mundo = new Plano_Fundo(acessar.getJogo(),"C:\\Users\\gsant\\Desktop\\APS_JAVA\\Jogo\\src\\Texturas\\GerarMundo.txt");
+        mundo = new Plano_Fundo(acessar,"C:\\Users\\gsant\\Desktop\\APS_JAVA\\Jogo\\src\\Texturas\\GerarMundo.txt");
+        acessar.setarMundo(mundo);
+        jogador = new Jogador(acessar,150,150);
+        //mundo = new Plano_Fundo(acessar.getJogo(),"C:\\Users\\gsant\\Desktop\\APS_JAVA\\Jogo\\src\\Texturas\\GerarMundo.txt");
         
     }
      
     @Override
     public void atualizar() {
-        System.out.println("caiu");
+        //System.out.println("caiu");
         mundo.atualizar();
         jogador.atualizar();
         acessar.pegarCamera().centralizar(jogador);

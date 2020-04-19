@@ -1,23 +1,28 @@
 
 package Entities;
 
+import Inicializador.Acessar;
 import Inicializador.Jogo;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 
 public abstract class Entity {
     // protected é como private só que apenas as classes que vão estender vao ter acesso
-    protected Jogo jogo;
+    protected Acessar acessar;
     protected float x,y;
     protected int largura,altura;
+    protected Rectangle hitboxPersonagem;
     
     // isso é para garantir que as posições vao receber valores
-    public Entity(Jogo jogo,float x,float y,int largura,int altura)
+    public Entity(Acessar acessar,float x,float y,int largura,int altura)
     {
-        this.jogo = jogo;
+        this.acessar = acessar;
         this.x = x;
         this.y = y;
         this.largura = largura;
         this.altura = altura;
+        
+        hitboxPersonagem = new Rectangle(0,0,largura,altura);
     }
 
     //acessar e manipular variaveis do tipo private e protected atraves de outras
