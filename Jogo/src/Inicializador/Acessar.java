@@ -5,6 +5,7 @@
  */
 package Inicializador;
 
+import Entities.GerarEntidades;
 import Gerenciador_Teclado.Teclado;
 import Tela.Camera;
 import Texturas.Plano_Fundo;
@@ -22,6 +23,7 @@ public class Acessar {
     public Plano_Fundo pegarMundo() {
         return mundo;
     }
+    
 
     public void setarMundo(Plano_Fundo mundo) {
         this.mundo = mundo;

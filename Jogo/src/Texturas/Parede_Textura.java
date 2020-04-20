@@ -5,7 +5,7 @@
  */
 package Texturas;
 
-import Imagem.SuaviazarCarregamentoImagem;
+import Imagem.CarregarImagens;
 import java.awt.image.BufferedImage;
 
 /**
@@ -15,7 +15,7 @@ import java.awt.image.BufferedImage;
 public class Parede_Textura extends Texturas {
     
     public Parede_Textura(int id) {
-        super(SuaviazarCarregamentoImagem.parede, id);
+        super(CarregarImagens.parede, id);
     }
     
     public boolean possoEsbarrar()

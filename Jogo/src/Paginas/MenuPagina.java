@@ -5,7 +5,7 @@
  */
 package Paginas;
 
-import Imagem.SuaviazarCarregamentoImagem;
+import Imagem.CarregarImagens;
 import Inicializador.Acessar;
 import Inicializador.Jogo;
 import java.awt.Graphics;

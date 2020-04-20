@@ -1,9 +1,8 @@
 package Inicializador;
 
 import Gerenciador_Teclado.Teclado;
-import Imagem.Sprite;
-import Imagem.CarregarImagem;
-import Imagem.SuaviazarCarregamentoImagem;
+import Imagem.TransformarEmBuffered;
+import Imagem.CarregarImagens;
 import Paginas.ConfiguracaoPagina;
 import Paginas.JogoPagina;
 import Paginas.MenuPagina;
@@ -29,7 +28,7 @@ public class Jogo implements Runnable {
     private BufferStrategy bs;
     // graphics me permite desenhar no canvas
     private Graphics grafico;
-    
+
     private Camera camera;
 
     //private BufferedImage imagem;
@@ -37,19 +36,19 @@ public class Jogo implements Runnable {
     private String titulo;
     private int largura;
     private int altura;
-    
+
     private Acessar acessar;
 
     // input para as teclas
-    
     private Teclado teclado;
-    
+
     // paginas
-    
     private Metodos jogoPagina;
     private Metodos menuPagina;
     private Metodos configuraPagina;
-    
+
+    private CarregarImagens carregar;
+
     public Jogo(String titulo, int largura, int altura) {
         this.titulo = titulo;
         this.largura = largura;
@@ -60,8 +59,7 @@ public class Jogo implements Runnable {
     private void atualizar() {
         //System.out.println("caiuAtualizarJogo");
         teclado.atualizar();
-        if(Metodos.pegarPaginaAtual() != null)
-        {
+        if (Metodos.pegarPaginaAtual() != null) {
             Metodos.pegarPaginaAtual().atualizar();
         }
     }
@@ -92,59 +90,51 @@ public class Jogo implements Runnable {
         //grafico.fillRect(10, 50, 50, 70);
         //grafico.setColor(Color.red);
         //grafico.fillRect(0, 0, 10, 10);
-        
-        if(Metodos.pegarPaginaAtual() != null)
-        {
+        if (Metodos.pegarPaginaAtual() != null) {
             Metodos.pegarPaginaAtual().renderizar(grafico);
         }
-        
+
         // colocar imagem na tela
         //grafico.drawImage(imagemCortada.cortarImagem(0, 0, 227, 222), 5, 5, null);
-
         //finalizando desenho
         bs.show();
         grafico.dispose();
     }
 
     private void init() {
-        
-        
+
         tela = new Tela(titulo, largura, altura);
-        camera = new Camera(this,5,5);
-        SuaviazarCarregamentoImagem.init();
-        tela.pegarTela().addKeyListener(teclado);
         acessar = new Acessar(this);
+        camera = new Camera(acessar, 5, 5);
+        carregar.init();
+        tela.pegarTela().addKeyListener(teclado);
         // colocando esse this eu passo toda essa classe para as outras classes para ter acesso ao que tenho nessa classe
         jogoPagina = new JogoPagina(acessar);
         menuPagina = new MenuPagina(acessar);
         configuraPagina = new ConfiguracaoPagina(acessar);
         Metodos.setarPaginaAtual(jogoPagina);
-        
+
         //imagem = carregarImagem.carregaImg("C:\\Users\\gsant\\Desktop\\APS_JAVA\\Jogo\\coisas\\images\\teste.png");
         //imagem = imagemCortada.cortarImagem(227, 0, 346, 219);
         //imagemCortada = new Sprite(imagem);
     }
-    
-    public Camera pegarCamera()
-    {
+
+    public Camera pegarCamera() {
         return camera;
     }
-    
-    public int pegarLargura()
-    {
+
+    public int pegarLargura() {
         return largura;
     }
-    
-    public int pegarAltura()
-    {
+
+    public int pegarAltura() {
         return altura;
     }
-    
-    public Teclado pegarTeclado()
-    {
+
+    public Teclado pegarTeclado() {
         return teclado;
     }
-    
+
     public void run() {
 
         // iniciar o jogo
@@ -161,7 +151,7 @@ public class Jogo implements Runnable {
         long ultimoTempoAgora = System.nanoTime();
         long tempo = 0;
         long frames = 0;
-        
+
         while (funcionando == true) {
             tempoAgora = System.nanoTime();
             delta += (tempoAgora - ultimoTempoAgora) / tempoRenderizar;
@@ -174,7 +164,7 @@ public class Jogo implements Runnable {
                 frames++;
                 delta--;
             }
-            
+
             if (tempo >= 1000000000) {
                 //System.out.println(frames);
                 frames = 0;

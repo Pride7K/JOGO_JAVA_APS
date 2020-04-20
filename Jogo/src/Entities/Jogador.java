@@ -1,6 +1,6 @@
 package Entities;
 
-import Imagem.SuaviazarCarregamentoImagem;
+import Imagem.CarregarImagens;
 import Inicializador.Acessar;
 import Inicializador.Jogo;
 import java.awt.Color;
@@ -13,18 +13,24 @@ public class Jogador extends Monstros {
         super(acessar,x, y,Monstros.largura_padrao,Monstros.altura_padrao);
         // sem isso o jogo nao vai funcionar lol
         this.acessar = acessar;
-        /*
-        hitboxPersonagem.x = 0;
-        hitboxPersonagem.y = 0;
-        hitboxPersonagem.width = 45;
-        hitboxPersonagem.height = 45;
-        */
+        
+        
+        
+        // desenhar hitbox no personagem
+        hitboxObjetos.x = 12;
+        hitboxObjetos.y = 15;
+        hitboxObjetos.width = 27;
+        hitboxObjetos.height = 42;
+        
     }
+    
+    
 
     @Override
     public void atualizar() {
         pegarEntradas();
-        Mover();
+        Mover(this);
+        acessar.pegarCamera().centralizar(this);
     }
 
     private void pegarEntradas()
@@ -51,15 +57,16 @@ public class Jogador extends Monstros {
         
         
     }
+    
    
     @Override
     public void renderizar(Graphics grafico) {
-        grafico.drawImage(SuaviazarCarregamentoImagem.jogador, (int) (x - acessar.pegarCamera().getX()), (int) (y - acessar.pegarCamera().getY()), largura , altura , null);
+        grafico.drawImage(CarregarImagens.jogador, (int) (x - acessar.pegarCamera().getX()), (int) (y - acessar.pegarCamera().getY()), largura , altura , null);
         grafico.setColor(Color.RED);
         // se não somar o x com a hitbox a hitbox vai ficar colada longe do personagem
         // o mesmo vale para o y
-        grafico.fillRect((int) (x + hitboxPersonagem.x - acessar.pegarCamera().getX()), (int) (y + hitboxPersonagem.y - acessar.pegarCamera().getY()),
-                hitboxPersonagem.width, hitboxPersonagem.height);
+        grafico.fillRect((int) (x + hitboxObjetos.x - acessar.pegarCamera().getX()), (int) (y + hitboxObjetos.y - acessar.pegarCamera().getY()),
+                hitboxObjetos.width, hitboxObjetos.height);
         
     }
     

@@ -14,13 +14,14 @@ public class Texturas {
     
     protected BufferedImage textura;
     
-    public static final int largura_textura = 64;
-    public static final int altura_textura = 64;
+    public static final int largura_textura = 80;
+    public static final int altura_textura = 80;
     
     protected final int id;
     
     public Texturas(BufferedImage textura,int id)
     {
+            
         this.textura = textura;
         this.id = id;
         

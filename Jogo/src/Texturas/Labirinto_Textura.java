@@ -1,13 +1,13 @@
 
 package Texturas;
 
-import Imagem.SuaviazarCarregamentoImagem;
+import Imagem.CarregarImagens;
 import java.awt.image.BufferedImage;
 
 public class Labirinto_Textura extends Texturas {
     
     public Labirinto_Textura(int id) {
-        super(SuaviazarCarregamentoImagem.pedacoMapa, id);
+        super(CarregarImagens.pedacoMapa, id);
     }
     
 }

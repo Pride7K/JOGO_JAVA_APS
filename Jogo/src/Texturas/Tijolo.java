@@ -5,7 +5,7 @@
  */
 package Texturas;
 
-import Imagem.SuaviazarCarregamentoImagem;
+import Imagem.CarregarImagens;
 import java.awt.image.BufferedImage;
 
 /**
@@ -15,7 +15,7 @@ import java.awt.image.BufferedImage;
 public class Tijolo extends Texturas{
     
     public Tijolo(int id) {
-        super(SuaviazarCarregamentoImagem.tijolo, id);
+        super(CarregarImagens.tijolo, id);
     }
     
 }

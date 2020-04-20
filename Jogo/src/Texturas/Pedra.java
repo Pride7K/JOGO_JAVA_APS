@@ -5,7 +5,7 @@
  */
 package Texturas;
 
-import Imagem.SuaviazarCarregamentoImagem;
+import Imagem.CarregarImagens;
 import java.awt.image.BufferedImage;
 
 /**
@@ -15,7 +15,7 @@ import java.awt.image.BufferedImage;
 public class Pedra extends Texturas{
     
     public Pedra(int id) {
-        super(SuaviazarCarregamentoImagem.pedra, id);
+        super(CarregarImagens.pedra, id);
     }
     
     @Override
