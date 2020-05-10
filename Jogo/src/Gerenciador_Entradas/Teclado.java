@@ -1,5 +1,5 @@
 
-package Gerenciador_Teclado;
+package Gerenciador_Entradas;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -9,6 +9,7 @@ public class Teclado implements KeyListener {
 
     public boolean[] teclas;
     public boolean a,w,s,d;
+    public boolean ataque;
     
     public void atualizar()
     {
@@ -17,6 +18,7 @@ public class Teclado implements KeyListener {
         w = teclas[KeyEvent.VK_W];
         s = teclas[KeyEvent.VK_S];
         d = teclas[KeyEvent.VK_D];
+        ataque = teclas[KeyEvent.VK_SPACE];
         
     }
     

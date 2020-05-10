@@ -7,7 +7,7 @@ public class CarregarImagens {
     private static final int largura = 32;
     private static final int altura = 32;
     
-    public static BufferedImage jogador,pedra,mapaCompleto,parede,pedacoMapa,tijolo,arvore,teste1;
+    public static BufferedImage jogador,pedra,mapaCompleto,parede,pedacoMapa,tijolo,arvore,teste1,inimigo,casa;
     
     public static void init()
     {
@@ -16,13 +16,16 @@ public class CarregarImagens {
         BufferedImage tijoloImage = (TransformarEmBuffered.carregaImg(caminho + "\\coisas\\images\\tijolo.png"));
         BufferedImage pedraImage = (TransformarEmBuffered.carregaImg(caminho + "\\coisas\\images\\pedra.jpg"));
         BufferedImage arvoreImage = (TransformarEmBuffered.carregaImg(caminho + "\\coisas\\images\\arvore.png"));
+        BufferedImage casaImage = (TransformarEmBuffered.carregaImg(caminho + "\\coisas\\images\\casa.png"));
         BufferedImage jogadorImage = (TransformarEmBuffered.carregaImg(caminho + "\\coisas\\images\\Jogador\\detetive_andando_direita_1.png"));
+        BufferedImage inimigoImage = (TransformarEmBuffered.carregaImg(caminho + "\\coisas\\images\\Inimigo\\baixo1.png"));
         arvore = cortarImagem(0, 0, 500, 500,arvoreImage);
         jogador = cortarImagem(0, 0, 27, 42,jogadorImage);
         pedacoMapa = cortarImagem(0, 0, 15, 15,pedacoMapaImage);
         tijolo = cortarImagem(0, 0, 522, 451,tijoloImage);
         pedra = cortarImagem(0, 0, 236, 236,pedraImage);
-        
+        inimigo = cortarImagem(0, 0, 18, 40,inimigoImage);
+        casa = cortarImagem(0, 0, 768, 1140,casaImage);
     }
     
     public static BufferedImage cortarImagem(int x, int y, int largura,int altura,BufferedImage sheet)

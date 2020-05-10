@@ -12,7 +12,7 @@ import java.awt.image.BufferedImage;
  *
  * @author gsant
  */
-public class Pedra extends Texturas{
+public class Pedra extends Texturas_Mundo{
     
     public Pedra(int id) {
         super(CarregarImagens.pedra, id);

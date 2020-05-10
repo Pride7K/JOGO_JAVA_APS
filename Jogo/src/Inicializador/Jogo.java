@@ -1,6 +1,6 @@
 package Inicializador;
 
-import Gerenciador_Teclado.Teclado;
+import Gerenciador_Entradas.Teclado;
 import Imagem.TransformarEmBuffered;
 import Imagem.CarregarImagens;
 import Paginas.ConfiguracaoPagina;

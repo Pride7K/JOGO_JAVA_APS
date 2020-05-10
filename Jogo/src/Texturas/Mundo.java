@@ -1,7 +1,9 @@
 package Texturas;
 
 import Entities.Arvore;
-import Entities.GerarEntidades;
+import Entities.Casa;
+import Entities.GerarObjetos_No_Mapa;
+import Entities.Inimigo;
 import Entities.Jogador;
 import Inicializador.Acessar;
 import Inicializador.Jogo;
@@ -13,20 +15,20 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class Plano_Fundo {
+public class Mundo {
 
     private int altura, largura;
     private int positionX, positionY;
     private int[][] planoFundo;
     private Acessar acessar;
     
-    public GerarEntidades gerarEntidades;
+    public GerarObjetos_No_Mapa gerarEntidades;
 
-    public Plano_Fundo(Acessar acessar, String caminho) {
+    public Mundo(Acessar acessar, String caminho) {
         this.acessar = acessar;
-        gerarEntidades = new GerarEntidades(acessar,new Jogador(acessar,200,200));
-        gerarEntidades.adicionarObjeto(new Arvore(acessar,150,150,100,100));
-        
+        gerarEntidades = new GerarObjetos_No_Mapa(acessar,new Jogador(acessar,550,500));
+        gerarEntidades.adicionarObjeto(new Arvore(acessar,150,250)); 
+        gerarEntidades.adicionarObjeto(new Casa(acessar,300,350)); 
         //gerarEntidades.getJogador().setX(30);
         //gerarEntidades.getJogador().setY(30);
         carregarIMG(caminho);
@@ -34,11 +36,11 @@ public class Plano_Fundo {
         
     }
 
-    public GerarEntidades getGerarEntidades() {
+    public GerarObjetos_No_Mapa getGerarEntidades() {
         return gerarEntidades;
     }
 
-    public void setGerarEntidades(GerarEntidades gerarEntidades) {
+    public void setGerarEntidades(GerarObjetos_No_Mapa gerarEntidades) {
         this.gerarEntidades = gerarEntidades;
     }
 
@@ -52,15 +54,15 @@ public class Plano_Fundo {
 
         //int xVisivelStart = (int) Math.max(0,jogo.pegarCamera().getX() / Texturas.largura_textura + 2),xVisivelFinal = largura;
         //int xVisivelStart = (int) Math.max(0,jogo.pegarCamera().getX() / Texturas.largura_textura),xVisivelFinal = (int) Math.min(largura, (jogo.pegarCamera().getX() + jogo.pegarLargura()) / Texturas.largura_textura);
-        int xVisivelStart = (int) Math.max(0, acessar.pegarCamera().getX() / Texturas.largura_textura), xVisivelFinal = (int) Math.min(largura, (acessar.pegarCamera().getX() + acessar.pegarLargura()) / Texturas.largura_textura + 1);
-        int yVisivelStart = (int) Math.max(0, acessar.pegarCamera().getY() / Texturas.altura_textura), yVisivelFinal = (int) Math.min(altura, (acessar.pegarCamera().getY() + acessar.pegarAltura()) / Texturas.altura_textura + 1);
+        int xVisivelStart = (int) Math.max(0, acessar.pegarCamera().getX() / Texturas_Mundo.largura_textura), xVisivelFinal = (int) Math.min(largura, (acessar.pegarCamera().getX() + acessar.pegarLargura()) / Texturas_Mundo.largura_textura + 1);
+        int yVisivelStart = (int) Math.max(0, acessar.pegarCamera().getY() / Texturas_Mundo.altura_textura), yVisivelFinal = (int) Math.min(altura, (acessar.pegarCamera().getY() + acessar.pegarAltura()) / Texturas_Mundo.altura_textura + 1);
 
         ///////////// //////////////////////////////////// ////////////// /////////////////// ///////////////
         for (int positionY = yVisivelStart; positionY < yVisivelFinal; positionY++) {
             for (int positionX = xVisivelStart; positionX < xVisivelFinal; positionX++) {
                 //System.out.println(pegarTextura(positionX,positionY));
 
-                pegarTextura(positionX, positionY).renderizar(grafico, (int) (positionX * Texturas.largura_textura - acessar.pegarCamera().getX()), (int) (positionY * Texturas.altura_textura - acessar.pegarCamera().getY()));
+                pegarTextura(positionX, positionY).renderizar(grafico, (int) (positionX * Texturas_Mundo.largura_textura - acessar.pegarCamera().getX()), (int) (positionY * Texturas_Mundo.altura_textura - acessar.pegarCamera().getY()));
 
             }
         }
@@ -68,14 +70,14 @@ public class Plano_Fundo {
         gerarEntidades.renderizar(grafico);
     }
 
-    public Texturas pegarTextura(int x, int y) {
+    public Texturas_Mundo pegarTextura(int x, int y) {
         if (x < 0 || x >= largura || y < 0 || y >= largura) {
-            return Texturas.pedra;
+            return Texturas_Mundo.pedra;
         }
-        Texturas texturaz = Texturas.texturas[planoFundo[x][y]];
+        Texturas_Mundo texturaz = Texturas_Mundo.texturas[planoFundo[x][y]];
         //System.out.println(planoFundo[x][y]);
         if (texturaz == null) {
-            return Texturas.parede;
+            return Texturas_Mundo.parede;
         }
         return texturaz;
     }

@@ -7,18 +7,18 @@ import Entities.Jogador;
 import Imagem.CarregarImagens;
 import Inicializador.Acessar;
 import Inicializador.Jogo;
-import Texturas.Plano_Fundo;
-import Texturas.Texturas;
+import Texturas.Mundo;
+import Texturas.Texturas_Mundo;
 import java.awt.Graphics;
 
 public class JogoPagina extends Metodos {
 
     //private Jogador jogador;
-    private Plano_Fundo mundo;
+    private Mundo mundo;
     public JogoPagina(Acessar acessar)
     {
         super(acessar);
-        mundo = new Plano_Fundo(acessar,"C:\\Users\\gsant\\Desktop\\APS_JAVA\\Jogo\\src\\Texturas\\GerarMundo.txt");
+        mundo = new Mundo(acessar,"C:\\Users\\gsant\\Desktop\\APS_JAVA\\Jogo\\src\\Texturas\\GerarMundo.txt");
         acessar.setarMundo(mundo);
         //mundo = new Plano_Fundo(acessar.getJogo(),"C:\\Users\\gsant\\Desktop\\APS_JAVA\\Jogo\\src\\Texturas\\GerarMundo.txt");
         

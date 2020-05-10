@@ -4,13 +4,13 @@ package Texturas;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
-public class Texturas {
+public class Texturas_Mundo {
     
-    public static Texturas[] texturas = new Texturas[256];
-    public static Texturas pedaco_mapa = new Labirinto_Textura(0);
-    public static Texturas parede = new Parede_Textura(1);
-    public static Texturas tijolo = new Tijolo(2);
-    public static Texturas pedra = new Pedra(3);
+    public static Texturas_Mundo[] texturas = new Texturas_Mundo[256];
+    public static Texturas_Mundo pedaco_mapa = new Labirinto_Textura(0);
+    public static Texturas_Mundo parede = new Parede_Textura(1);
+    public static Texturas_Mundo tijolo = new Tijolo(2);
+    public static Texturas_Mundo pedra = new Pedra(3);
     
     protected BufferedImage textura;
     
@@ -19,7 +19,7 @@ public class Texturas {
     
     protected final int id;
     
-    public Texturas(BufferedImage textura,int id)
+    public Texturas_Mundo(BufferedImage textura,int id)
     {
             
         this.textura = textura;

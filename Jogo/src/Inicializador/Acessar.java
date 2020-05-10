@@ -5,10 +5,10 @@
  */
 package Inicializador;
 
-import Entities.GerarEntidades;
-import Gerenciador_Teclado.Teclado;
+import Entities.GerarObjetos_No_Mapa;
+import Gerenciador_Entradas.Teclado;
 import Tela.Camera;
-import Texturas.Plano_Fundo;
+import Texturas.Mundo;
 
 /**
  *
@@ -17,15 +17,15 @@ import Texturas.Plano_Fundo;
 public class Acessar {
     
     private Jogo jogo;
-    private Plano_Fundo mundo;
+    private Mundo mundo;
 
     
-    public Plano_Fundo pegarMundo() {
+    public Mundo pegarMundo() {
         return mundo;
     }
     
 
-    public void setarMundo(Plano_Fundo mundo) {
+    public void setarMundo(Mundo mundo) {
         this.mundo = mundo;
     }
 

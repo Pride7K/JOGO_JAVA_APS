@@ -11,25 +11,29 @@ import java.awt.image.BufferedImage;
 public abstract class Monstros extends Entity {
 
     // final é como const do javascript
-    public static final int vida_padrao = 10;
     public static final float velocidade_padrao = 7;
     public static final int largura_padrao = 50;
     public static final int altura_padrao = 50;
     protected Acessar acessar;
     protected float monstroPositionX;
     protected float monstroPositionY;
-
+     
+    private Inimigo inimigoT;
+    private Jogador jogador;
     private CarregarImagens imagens;
 
     private int mover = 1;
 
     protected int vida;
     protected float velocidade;
+    
+    public float testeX;
+    
 
     public Monstros(Acessar acessar, float x, float y, int altura, int largura) {
         // esse super ira passar os parametros para a classe estendida
         super(acessar, x, y, altura, largura);
-        vida = vida_padrao;
+        this.acessar = acessar;
         velocidade = velocidade_padrao;
         monstroPositionX = 0;
         monstroPositionY = 0;
@@ -43,14 +47,20 @@ public abstract class Monstros extends Entity {
     }
      */
     public void Mover(Jogador jogador) {
-        if (!esbarrouComObjeto(x, 0f)) {
+        if (!esbarrouComObjeto(monstroPositionX, 0f)) {
             MoverPosicaoX(jogador);
         }
-        if (!esbarrouComObjeto(0f, y)) {
+        if (!esbarrouComObjeto(0f, monstroPositionY)) {
             MoverPosicaoY(jogador);
         }
     }
-
+    
+    public void ViuJogador(Inimigo inimigo)
+    {
+        
+    }
+    
+    
     public void MoverPosicaoX(Jogador jogador) {
         // se for maior que 0 quer dizer que esta se movendo para a direita
         // se for menor que 0 esta indo para a esquerda
@@ -61,9 +71,9 @@ public abstract class Monstros extends Entity {
             //System.out.println(x);
             //System.out.println(monstroPositionX);
             //System.out.println(hitboxPersonagem.width);
-            int hitboxX = (int) (x + monstroPositionX + hitboxObjetos.x + hitboxObjetos.width) / Texturas.Texturas.largura_textura;
+            int hitboxX = (int) (x + monstroPositionX + hitboxObjetos.x + hitboxObjetos.width) / Texturas.Texturas_Mundo.largura_textura;
             //System.out.println(hitboxX);
-            if (colidiuTextura(hitboxX, (int) (y + hitboxObjetos.y) / Texturas.Texturas.altura_textura) == false && colidiuTextura(hitboxX, (int) (y + hitboxObjetos.y + hitboxObjetos.height) / Texturas.Texturas.altura_textura) == false) {
+            if (colidiuTextura(hitboxX, (int) (y + hitboxObjetos.y) / Texturas.Texturas_Mundo.altura_textura) == false && colidiuTextura(hitboxX, (int) (y + hitboxObjetos.y + hitboxObjetos.height) / Texturas.Texturas_Mundo.altura_textura) == false) {
                 x = x + monstroPositionX;
                 if (mover == 4) {
                     mover = 1;
@@ -74,8 +84,8 @@ public abstract class Monstros extends Entity {
             }
         } else if (monstroPositionX < 0) {
             // x + monstroPositionX + hitboxPersonagem.x  == lado esquerdo do personagem
-            int hitboxX = (int) (x + monstroPositionX + hitboxObjetos.x) / Texturas.Texturas.largura_textura;
-            if (colidiuTextura(hitboxX, (int) (y + hitboxObjetos.y) / Texturas.Texturas.altura_textura) == false && colidiuTextura(hitboxX, (int) (y + hitboxObjetos.y + hitboxObjetos.height) / Texturas.Texturas.altura_textura) == false) {
+            int hitboxX = (int) (x + monstroPositionX + hitboxObjetos.x) / Texturas.Texturas_Mundo.largura_textura;
+            if (colidiuTextura(hitboxX, (int) (y + hitboxObjetos.y) / Texturas.Texturas_Mundo.altura_textura) == false && colidiuTextura(hitboxX, (int) (y + hitboxObjetos.y + hitboxObjetos.height) / Texturas.Texturas_Mundo.altura_textura) == false) {
                 x = x + monstroPositionX;
                 if (mover == 4) {
                     mover = 1;
@@ -119,9 +129,9 @@ public abstract class Monstros extends Entity {
 
     public void MoverPosicaoY(Jogador jogador) {
         if (monstroPositionY > 0) {
-            int hitboxY = (int) (y + monstroPositionY + hitboxObjetos.y + hitboxObjetos.height) / Texturas.Texturas.altura_textura;
+            int hitboxY = (int) (y + monstroPositionY + hitboxObjetos.y + hitboxObjetos.height) / Texturas.Texturas_Mundo.altura_textura;
             //System.out.println(hitboxX);
-            if (colidiuTextura((int) (x + hitboxObjetos.x) / Texturas.Texturas.largura_textura, hitboxY) == false) {
+            if (colidiuTextura((int) (x + hitboxObjetos.x) / Texturas.Texturas_Mundo.largura_textura, hitboxY) == false) {
                 y = y + monstroPositionY;
                 if (mover == 4) {
                     mover = 1;
@@ -131,9 +141,9 @@ public abstract class Monstros extends Entity {
                 atualizarSprite(mover, "Baixo", jogador);
             }
         } else if (monstroPositionY < 0) {
-            int hitboxY = (int) (y + monstroPositionY + hitboxObjetos.y) / Texturas.Texturas.altura_textura;
+            int hitboxY = (int) (y + monstroPositionY + hitboxObjetos.y) / Texturas.Texturas_Mundo.altura_textura;
             //System.out.println(hitboxX);
-            if (colidiuTextura((int) (x + hitboxObjetos.x) / Texturas.Texturas.largura_textura, hitboxY) == false) {
+            if (colidiuTextura((int) (x + hitboxObjetos.x) / Texturas.Texturas_Mundo.largura_textura, hitboxY) == false) {
                 y = y + monstroPositionY;
                 if (mover == 4) {
                     mover = 1;

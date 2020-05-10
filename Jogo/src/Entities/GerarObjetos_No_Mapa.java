@@ -8,21 +8,41 @@ package Entities;
 import Inicializador.Acessar;
 import java.awt.Graphics;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 /**
  *
  * @author gsant
  */
-public class GerarEntidades {
+public class GerarObjetos_No_Mapa {
     private Acessar acessar;
     private Jogador jogador;
     private ArrayList<Entity> ObjetosEntity;
-    
-    public GerarEntidades(Acessar acessar,Jogador jogados)         
+    /*
+    private Comparator<Entity> ordernarEntidades = new Comparator<Entity>() {
+        
+        // isso é para comparar o ponto Y entre duas entidades e evitar que as outras entidades
+        // sobreponham a entidade de personagem
+        @Override
+        public int compare(Entity entidade1, Entity entidade2) {
+            if(entidade1.getY() < entidade2.getY())
+            {
+                return -1;
+            }
+            else
+            {
+                return +1;
+            }
+        }
+    };
+    */
+    public GerarObjetos_No_Mapa(Acessar acessar,Jogador jogados)         
     {
         this.jogador = jogados;
         this.acessar = acessar;
         ObjetosEntity = new ArrayList<Entity>();
+        
+        adicionarObjeto(jogados);
     }
     
     public void atualizar()
@@ -30,10 +50,14 @@ public class GerarEntidades {
         for(int i =0;i < ObjetosEntity.size();i++)
         {
             Entity entidade = ObjetosEntity.get(i);
-            System.out.println(entidade);
+            //System.out.println(entidade);
             entidade.atualizar();
+            if(entidade.personagemVivo == false)
+            {
+                ObjetosEntity.remove(entidade);
+            }
         }
-        jogador.atualizar();
+        //ObjetosEntity.sort(ordernarEntidades);
     }
 
 
@@ -69,7 +93,6 @@ public class GerarEntidades {
             Entity entidade = ObjetosEntity.get(i);
             entidade.renderizar(grafico);
         }
-        jogador.renderizar(grafico);
     }
     
     public void adicionarObjeto(Entity objeto)           

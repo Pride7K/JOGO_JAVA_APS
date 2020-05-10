@@ -12,7 +12,7 @@ import java.awt.image.BufferedImage;
  *
  * @author gsant
  */
-public class Parede_Textura extends Texturas {
+public class Parede_Textura extends Texturas_Mundo {
     
     public Parede_Textura(int id) {
         super(CarregarImagens.parede, id);

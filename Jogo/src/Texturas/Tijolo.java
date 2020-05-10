@@ -12,7 +12,7 @@ import java.awt.image.BufferedImage;
  *
  * @author gsant
  */
-public class Tijolo extends Texturas{
+public class Tijolo extends Texturas_Mundo{
     
     public Tijolo(int id) {
         super(CarregarImagens.tijolo, id);
