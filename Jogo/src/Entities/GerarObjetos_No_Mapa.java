@@ -18,7 +18,7 @@ public class GerarObjetos_No_Mapa {
     private Acessar acessar;
     private Jogador jogador;
     private ArrayList<Entity> ObjetosEntity;
-    /*
+    
     private Comparator<Entity> ordernarEntidades = new Comparator<Entity>() {
         
         // isso é para comparar o ponto Y entre duas entidades e evitar que as outras entidades
@@ -35,7 +35,7 @@ public class GerarObjetos_No_Mapa {
             }
         }
     };
-    */
+    
     public GerarObjetos_No_Mapa(Acessar acessar,Jogador jogados)         
     {
         this.jogador = jogados;

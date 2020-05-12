@@ -11,7 +11,9 @@ public class Texturas_Mundo {
     public static Texturas_Mundo parede = new Parede_Textura(1);
     public static Texturas_Mundo tijolo = new Tijolo(2);
     public static Texturas_Mundo pedra = new Pedra(3);
-    
+    public static Texturas_Mundo terra = new Terra(4);
+    public static Texturas_Mundo grama = new Grama(5);
+    public static Texturas_Mundo gramaComTrilha = new GramaComTrilha(6);
     protected BufferedImage textura;
     
     public static final int largura_textura = 80;

@@ -6,6 +6,7 @@
 package Inicializador;
 
 import Entities.GerarObjetos_No_Mapa;
+import Gerenciador_Entradas.Mouse;
 import Gerenciador_Entradas.Teclado;
 import Tela.Camera;
 import Texturas.Mundo;
@@ -18,7 +19,7 @@ public class Acessar {
     
     private Jogo jogo;
     private Mundo mundo;
-
+    
     
     public Mundo pegarMundo() {
         return mundo;
@@ -41,6 +42,16 @@ public class Acessar {
     public Camera pegarCamera()
     {
         return jogo.pegarCamera();
+    }
+    
+    public Mouse pegarMouse()
+    {
+        return jogo.getMouse();
+    }
+    
+    public Mouse setarMouse()
+    {
+        return jogo.getMouse();
     }
     
     public int pegarLargura()

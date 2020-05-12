@@ -9,6 +9,8 @@ import Imagem.CarregarImagens;
 import Inicializador.Acessar;
 import Inicializador.Jogo;
 import java.awt.Graphics;
+import javax.swing.JButton;
+import javax.swing.JFrame;
 
 /**
  *
@@ -26,7 +28,7 @@ public class MenuPagina extends Metodos{
 
     @Override
     public void renderizar(Graphics graficos) {
-       // graficos.drawImage(SuaviazarCarregamentoImagem.imagem2, 0, 0, null);
+       
     }
     
 }

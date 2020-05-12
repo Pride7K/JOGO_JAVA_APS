@@ -1,5 +1,6 @@
 package Inicializador;
 
+import Gerenciador_Entradas.Mouse;
 import Gerenciador_Entradas.Teclado;
 import Imagem.TransformarEmBuffered;
 import Imagem.CarregarImagens;
@@ -41,6 +42,8 @@ public class Jogo implements Runnable {
 
     // input para as teclas
     private Teclado teclado;
+    
+    private Mouse mouse;
 
     // paginas
     private Metodos jogoPagina;
@@ -54,6 +57,7 @@ public class Jogo implements Runnable {
         this.largura = largura;
         this.altura = altura;
         teclado = new Teclado();
+        mouse = new Mouse();
     }
 
     private void atualizar() {
@@ -62,6 +66,14 @@ public class Jogo implements Runnable {
         if (Metodos.pegarPaginaAtual() != null) {
             Metodos.pegarPaginaAtual().atualizar();
         }
+    }
+
+    public Mouse getMouse() {
+        return mouse;
+    }
+
+    public void setMouse(Mouse mouse) {
+        this.mouse = mouse;
     }
 
     private void renderizar() {
@@ -101,6 +113,14 @@ public class Jogo implements Runnable {
         grafico.dispose();
     }
 
+    public Tela getTela() {
+        return tela;
+    }
+
+    public void setTela(Tela tela) {
+        this.tela = tela;
+    }
+
     private void init() {
 
         tela = new Tela(titulo, largura, altura);
@@ -108,6 +128,8 @@ public class Jogo implements Runnable {
         camera = new Camera(acessar, 5, 5);
         carregar.init();
         tela.pegarTela().addKeyListener(teclado);
+        tela.pegarCanvas().addMouseListener(mouse);
+        tela.pegarCanvas().addMouseMotionListener(mouse);
         // colocando esse this eu passo toda essa classe para as outras classes para ter acesso ao que tenho nessa classe
         jogoPagina = new JogoPagina(acessar);
         menuPagina = new MenuPagina(acessar);
