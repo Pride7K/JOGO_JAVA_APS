@@ -20,7 +20,8 @@ public class Casa extends EntityParaObjetosStaticos{
     public Casa(Acessar acessar, float x, float y) {
         super(acessar, x, y, Texturas_Mundo.largura_textura * 3, Texturas_Mundo.altura_textura * 3);
         this.acessar = acessar;
-        this.possoPassar = false;
+        this.possoAtacar = false;
+        
         // desenhar hitbox da casa
         hitboxObjetos.x = 20;
         hitboxObjetos.y = 50;
@@ -41,9 +42,9 @@ public class Casa extends EntityParaObjetosStaticos{
     @Override
     public void renderizar(Graphics grafico) {
         grafico.drawImage(CarregarImagens.casa,(int) (x - acessar.pegarCamera().getX()),(int) (y - acessar.pegarCamera().getY()), largura, altura, null);
-        grafico.setColor(Color.YELLOW);
-        grafico.fillRect((int) (x + hitboxObjetos.x - acessar.pegarCamera().getX()), (int) (y + hitboxObjetos.y - acessar.pegarCamera().getY()),
-                hitboxObjetos.width, hitboxObjetos.height);
+        //grafico.setColor(Color.YELLOW);
+        //grafico.fillRect((int) (x + hitboxObjetos.x - acessar.pegarCamera().getX()), (int) (y + hitboxObjetos.y - acessar.pegarCamera().getY()),
+          //      hitboxObjetos.width, hitboxObjetos.height);
     }
     
 }

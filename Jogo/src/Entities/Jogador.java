@@ -18,8 +18,7 @@ public class Jogador extends Monstros {
         super(acessar,x, y,Monstros.largura_padrao,Monstros.altura_padrao);
         // sem isso o jogo nao vai funcionar lol
         this.acessar = acessar;
-        
-        
+        this.isPlayer = true;
         // desenhar hitbox no personagem
         hitboxObjetos.x = 12;
         hitboxObjetos.y = 15;
@@ -27,6 +26,8 @@ public class Jogador extends Monstros {
         hitboxObjetos.height = 52;
         
     }
+
+
     
     
 
@@ -100,10 +101,17 @@ public class Jogador extends Monstros {
             }
             if(teste.hitboxRetangulo(0f, 0f).intersects(areaDeAtaque))
             {
-                System.out.println("caiu4");
-                System.out.println(teste);
+                if(teste.possoAtacar == false)
+                {
+                    
+                }
+                else
+                {
+                //System.out.println("caiu4");
+                //System.out.println(teste);
                 teste.atacar(10);
-                return; 
+                return;    
+                }
             }
         }
         
@@ -157,14 +165,14 @@ public class Jogador extends Monstros {
         grafico.setColor(Color.RED);
         // se não somar o x com a hitbox a hitbox vai ficar colada longe do personagem
         // o mesmo vale para o y
-        grafico.fillRect((int) (x + hitboxObjetos.x - acessar.pegarCamera().getX()), (int) (y + hitboxObjetos.y - acessar.pegarCamera().getY()),
-              hitboxObjetos.width, hitboxObjetos.height);
+        //grafico.fillRect((int) (x + hitboxObjetos.x - acessar.pegarCamera().getX()), (int) (y + hitboxObjetos.y - acessar.pegarCamera().getY()),
+             // hitboxObjetos.width, hitboxObjetos.height);
         
     }
 
     @Override
     public void Morrer() {
-        System.out.println("morreu");
+        System.out.println("Seems like you died lol");
     }
     
 

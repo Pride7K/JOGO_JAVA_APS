@@ -17,18 +17,16 @@ public abstract class Monstros extends Entity {
     protected Acessar acessar;
     protected float monstroPositionX;
     protected float monstroPositionY;
-     
+
     private Inimigo inimigoT;
-    private Jogador jogador;
     private CarregarImagens imagens;
 
     private int mover = 1;
 
     protected int vida;
     protected float velocidade;
-    
+
     public float testeX;
-    
 
     public Monstros(Acessar acessar, float x, float y, int altura, int largura) {
         // esse super ira passar os parametros para a classe estendida
@@ -54,13 +52,76 @@ public abstract class Monstros extends Entity {
             MoverPosicaoY(jogador);
         }
     }
-    
-    public void ViuJogador(Inimigo inimigo)
-    {
-        
+
+    public void Mover(Inimigo inimigo) {
+        for (int i = 0; i < acessar.pegarMundo().getGerarEntidades().getObjetosEntity().size(); i++) {
+            Entity teste = acessar.pegarMundo().getGerarEntidades().getObjetosEntity().get(i);
+            if (teste.isPlayer == true) {
+                float longitudeX1 = teste.x - inimigo.x;
+                float latitudeY1 = teste.y - inimigo.y;
+                if (inimigo.x != teste.x) {
+                    MoverPosicaoX(inimigo, teste, longitudeX1);
+                }
+                if (inimigo.y != teste.y) {
+                    MoverPosicaoY(inimigo, teste, latitudeY1);
+                }
+            }
+        }
     }
-    
-    
+
+    public void MoverPosicaoX(Inimigo inimigo, Entity jogador, float longitudeX1) {
+        //System.out.println("caiu");
+        //System.out.println(inimigo.x);
+        /*
+        if (longitudeX1 <= 0) {
+            System.out.println("caiu2");
+            int hitboxX = (int) (x + inimigo.x + hitboxObjetos.x + hitboxObjetos.width) / Texturas.Texturas_Mundo.largura_textura;
+            if (colidiuTextura(hitboxX, (int) (y + hitboxObjetos.y) / Texturas.Texturas_Mundo.altura_textura) == false && colidiuTextura(hitboxX, (int) (y + hitboxObjetos.y + hitboxObjetos.height) / Texturas.Texturas_Mundo.altura_textura) == false) {
+                System.out.println("finalizasso2");
+                inimigo.x = inimigo.x - 1;
+            }
+        } else if (longitudeX1 >= 0) {
+            System.out.println("caiu3");
+            int hitboxX = (int) (x + inimigo.x + hitboxObjetos.x) / Texturas.Texturas_Mundo.largura_textura;
+            if (colidiuTextura(hitboxX, (int) (y + hitboxObjetos.y) / Texturas.Texturas_Mundo.altura_textura) == false && colidiuTextura(hitboxX, (int) (y + hitboxObjetos.y + hitboxObjetos.height) / Texturas.Texturas_Mundo.altura_textura) == false) {
+                System.out.println("finalizasso3");
+                inimigo.x = inimigo.x + 1;
+            }
+        }
+*/
+        
+        if (longitudeX1 <= 0) {
+            inimigo.x = inimigo.x - 1;
+        } else if (longitudeX1 >= 0) {
+            inimigo.x = inimigo.x + 1;
+        }
+         
+    }
+
+    public void MoverPosicaoY(Inimigo inimigo, Entity jogador, float latitudeY1) {
+/*
+        if (latitudeY1 <= 0) {
+            int hitboxY = (int) (y + inimigo.y + hitboxObjetos.y + hitboxObjetos.height) / Texturas.Texturas_Mundo.altura_textura;
+            //System.out.println(hitboxX);
+            if (colidiuTextura((int) (x + hitboxObjetos.x) / Texturas.Texturas_Mundo.largura_textura, hitboxY) == false) {
+                inimigo.y = inimigo.y - 1;
+            }
+        } else if (monstroPositionY >= 0) {
+            int hitboxY = (int) (y + inimigo.y  + hitboxObjetos.y) / Texturas.Texturas_Mundo.altura_textura;
+            //System.out.println(hitboxX);
+            if (colidiuTextura((int) (x + hitboxObjetos.x) / Texturas.Texturas_Mundo.largura_textura, hitboxY) == false) {
+                inimigo.y = inimigo.y + 1;
+            }
+        }
+        */
+        if (latitudeY1 <= 0) {
+            inimigo.y = inimigo.y - 1;
+        } else if (latitudeY1 >= 0) {
+            inimigo.y = inimigo.y + 1;
+        }
+       
+    }
+
     public void MoverPosicaoX(Jogador jogador) {
         // se for maior que 0 quer dizer que esta se movendo para a direita
         // se for menor que 0 esta indo para a esquerda

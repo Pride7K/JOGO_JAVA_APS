@@ -9,6 +9,7 @@ import Inicializador.Acessar;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Random;
 
 /**
  *
@@ -47,6 +48,7 @@ public class GerarObjetos_No_Mapa {
     
     public void atualizar()
     {
+        int contador = 0;
         for(int i =0;i < ObjetosEntity.size();i++)
         {
             Entity entidade = ObjetosEntity.get(i);
@@ -56,6 +58,15 @@ public class GerarObjetos_No_Mapa {
             {
                 ObjetosEntity.remove(entidade);
             }
+            if(entidade.isInimigo)
+            {
+                contador++;
+            }
+        }
+        if(contador <= 10)
+        {
+                 Random gerador = new Random();
+        adicionarObjeto(new Inimigo(acessar,gerador.nextInt(2000),gerador.nextInt(2000)));    
         }
         //ObjetosEntity.sort(ordernarEntidades);
     }

@@ -19,6 +19,7 @@ public class PedronaInvertida extends EntityParaObjetosStaticos {
     public PedronaInvertida(Acessar acessar, float x, float y) {
         super(acessar, x, y, Texturas_Mundo.largura_textura * 2, Texturas_Mundo.altura_textura * 2);
         this.acessar = acessar;
+        this.possoAtacar = false;
     }
 
     @Override

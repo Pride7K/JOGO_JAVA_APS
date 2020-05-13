@@ -28,7 +28,10 @@ public class Mundo {
 
     public Mundo(Acessar acessar, String caminho) {
         this.acessar = acessar;
-        gerarEntidades = new GerarObjetos_No_Mapa(acessar,new Jogador(acessar,550,500));
+        
+        
+        gerarEntidades = new GerarObjetos_No_Mapa(acessar,new Jogador(acessar,550,450));
+        
         
         gerarEntidades.adicionarObjeto(new Arvore(acessar,2000,2189)); 
         gerarEntidades.adicionarObjeto(new Arvore(acessar,700,783)); 

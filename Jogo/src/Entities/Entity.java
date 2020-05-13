@@ -17,9 +17,10 @@ public abstract class Entity {
     protected int vida;
     protected boolean personagemVivo = true;
     protected boolean possoPassar = false;
-    
-    public abstract void Morrer();
-    
+    protected boolean possoAtacar = true;
+    // tive que deixar em ingles se não ia confundir tudo
+    protected boolean isPlayer = false;
+    protected boolean isInimigo = false;
     public int getVida() {
         return vida;
     }
@@ -47,7 +48,7 @@ public abstract class Entity {
     }
     public static final int vida_padrao = 10;
     
-    
+    public abstract void Morrer();
     
     // isso é para garantir que as posições vao receber valores
     public Entity(Acessar acessar,float x,float y,int largura,int altura)
