@@ -21,6 +21,8 @@ public abstract class Entity {
     // tive que deixar em ingles se não ia confundir tudo
     protected boolean isPlayer = false;
     protected boolean isInimigo = false;
+    protected boolean isBot = false;
+    protected String imgBot = "";
     public int getVida() {
         return vida;
     }
@@ -28,6 +30,7 @@ public abstract class Entity {
     public void setVida(int vida) {
         this.vida = vida;
     }
+    
     
     public void atacar(int vidaPerdida)
     {
@@ -93,13 +96,17 @@ public abstract class Entity {
             }
             if(teste.hitboxRetangulo(0f,0f).intersects(hitboxRetangulo(xObject,yObject)))
             {
-                //System.out.println(hitboxRetangulo(x,y));
+               //System.out.println(this);
+               //System.out.println(hitboxRetangulo(x,y));
+                
                if(teste.possoPassar == true)
                {
-                System.out.println(teste);
-                System.out.println(teste.possoPassar);
+                   //System.out.println("mano wtf");
+                //System.out.println(teste);
+                //System.out.println(teste.possoPassar);
                 return false;
                }
+
                return true;
             }
         }

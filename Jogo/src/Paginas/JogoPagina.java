@@ -10,11 +10,14 @@ import Inicializador.Jogo;
 import Texturas.Mundo;
 import Texturas.Texturas_Mundo;
 import java.awt.Graphics;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 public class JogoPagina extends Metodos {
 
     //private Jogador jogador;
     private Mundo mundo;
+    public JLabel testeJLabel = new JLabel();
     public JogoPagina(Acessar acessar)
     {
         super(acessar);
@@ -27,6 +30,7 @@ public class JogoPagina extends Metodos {
     @Override
     public void atualizar() {
         //System.out.println("caiu");
+        JOptionPane.showMessageDialog(null, "sla mano");
         mundo.atualizar();
         //acessar.pegarCamera().centralizar(jogador);
         //jogo.pegarCamera().mover(1, 1);

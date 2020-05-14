@@ -49,6 +49,7 @@ public class GerarObjetos_No_Mapa {
     public void atualizar()
     {
         int contador = 0;
+        int contador2 = 0;
         for(int i =0;i < ObjetosEntity.size();i++)
         {
             Entity entidade = ObjetosEntity.get(i);
@@ -62,11 +63,20 @@ public class GerarObjetos_No_Mapa {
             {
                 contador++;
             }
+            if(entidade.isBot == true)
+            {
+                contador2++;
+            }
         }
-        if(contador <= 10)
+        if(contador <= 0)
         {
                  Random gerador = new Random();
-        adicionarObjeto(new Inimigo(acessar,gerador.nextInt(2000),gerador.nextInt(2000)));    
+                 adicionarObjeto(new Inimigo(acessar,gerador.nextInt(2000),gerador.nextInt(2000)));    
+        }
+        if(contador2 <= 1)
+        {
+                 Random gerador = new Random();
+                 adicionarObjeto(new Pessoas(acessar,gerador.nextInt(2000),gerador.nextInt(2000)));    
         }
         //ObjetosEntity.sort(ordernarEntidades);
     }

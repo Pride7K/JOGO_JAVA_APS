@@ -1,6 +1,9 @@
 package Entities;
 
 import Imagem.CarregarImagens;
+import static Imagem.CarregarImagens.cortarImagem;
+import static Imagem.CarregarImagens.gramaComTrilha;
+import Imagem.TransformarEmBuffered;
 import Inicializador.Acessar;
 import Inicializador.Jogo;
 import Tela.Tela;
@@ -8,14 +11,15 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
 
 public class Jogador extends Monstros {
-    
+
     private BufferStrategy bs;
     private Tela tela;
-    
-    public Jogador(Acessar acessar,float x, float y) {
-        super(acessar,x, y,Monstros.largura_padrao,Monstros.altura_padrao);
+
+    public Jogador(Acessar acessar, float x, float y) {
+        super(acessar, x, y, Monstros.largura_padrao, Monstros.altura_padrao);
         // sem isso o jogo nao vai funcionar lol
         this.acessar = acessar;
         this.isPlayer = true;
@@ -24,12 +28,8 @@ public class Jogador extends Monstros {
         hitboxObjetos.y = 15;
         hitboxObjetos.width = 27;
         hitboxObjetos.height = 52;
-        
+
     }
-
-
-    
-    
 
     @Override
     public void atualizar() {
@@ -38,45 +38,43 @@ public class Jogador extends Monstros {
         acessar.pegarCamera().centralizar(this);
         possoAtacar(posicao);
     }
-    
-    private void possoAtacar(String lado)
-    {
+
+    private void possoAtacar(String lado) {
         // isso é para criar uma hitbox de ataque
         // somando mais a hitbox do personagem
         Rectangle hitboxPersonagem = hitboxRetangulo(0, 0);
         Rectangle areaDeAtaque = new Rectangle();
         int areaHitbox = 50;
-        
+
         areaDeAtaque.x = hitboxObjetos.x;
         areaDeAtaque.y = hitboxObjetos.y;
         areaDeAtaque.width = areaHitbox;
         areaDeAtaque.height = areaHitbox;
-        
-        if(acessar.pegarTeclado().ataque)
-        {
-         System.out.println(lado);
-         if (lado == "Direita") {
-            areaDeAtaque.x = hitboxPersonagem.y - areaHitbox;
-            areaDeAtaque.y = hitboxPersonagem.y + hitboxPersonagem.height / 2 -  areaHitbox / 2 ;
 
-        }
-        if (lado == "Esquerda") {
-            areaDeAtaque.x = hitboxPersonagem.y - areaHitbox;
-            areaDeAtaque.y = hitboxPersonagem.y + hitboxPersonagem.height / 2  - areaHitbox / 2;
+        if (acessar.pegarTeclado().ataque) {
+            System.out.println(lado);
+            if (lado == "Direita") {
+                areaDeAtaque.x = hitboxPersonagem.y - areaHitbox;
+                areaDeAtaque.y = hitboxPersonagem.y + hitboxPersonagem.height / 2 - areaHitbox / 2;
 
-        }
-        if (lado == "Cima") {
-            areaDeAtaque.x = hitboxPersonagem.x + hitboxPersonagem.width / 2  -  areaHitbox / 2;
-            areaDeAtaque.y = hitboxPersonagem.y - areaHitbox;
+            }
+            if (lado == "Esquerda") {
+                areaDeAtaque.x = hitboxPersonagem.y - areaHitbox;
+                areaDeAtaque.y = hitboxPersonagem.y + hitboxPersonagem.height / 2 - areaHitbox / 2;
 
-        }
-        if (lado == "Baixo") {
-            
-            areaDeAtaque.x = hitboxPersonagem.x + hitboxPersonagem.width / 2 -  areaHitbox / 2;
-            areaDeAtaque.y = hitboxPersonagem.y + areaHitbox;
-            
-        }
-            
+            }
+            if (lado == "Cima") {
+                areaDeAtaque.x = hitboxPersonagem.x + hitboxPersonagem.width / 2 - areaHitbox / 2;
+                areaDeAtaque.y = hitboxPersonagem.y - areaHitbox;
+
+            }
+            if (lado == "Baixo") {
+
+                areaDeAtaque.x = hitboxPersonagem.x + hitboxPersonagem.width / 2 - areaHitbox / 2;
+                areaDeAtaque.y = hitboxPersonagem.y + areaHitbox;
+
+            }
+
             /*
             bs = acessar.getJogo().getTela().pegarCanvas().getBufferStrategy();
             Graphics grafico;
@@ -84,96 +82,101 @@ public class Jogador extends Monstros {
             grafico.setColor(Color.RED);
             grafico.fillRect((int) (x + areaDeAtaque.x - acessar.pegarCamera().getX()), (int) (y + areaDeAtaque.y - acessar.pegarCamera().getY()),
               areaDeAtaque.width, areaDeAtaque.height);
-*/
-        }
-        
-        else
-        {
+             */
+        } else {
             return;
         }
-        
-        for(int i =0; i< acessar.pegarMundo().getGerarEntidades().getObjetosEntity().size();i++)
-        {
+
+        for (int i = 0; i < acessar.pegarMundo().getGerarEntidades().getObjetosEntity().size(); i++) {
             Entity teste = acessar.pegarMundo().getGerarEntidades().getObjetosEntity().get(i);
-            if(teste == this)
-            {
+            if (teste == this) {
                 continue;
             }
-            if(teste.hitboxRetangulo(0f, 0f).intersects(areaDeAtaque))
-            {
-                if(teste.possoAtacar == false)
-                {
-                    
-                }
-                else
-                {
-                //System.out.println("caiu4");
-                //System.out.println(teste);
-                teste.atacar(10);
-                return;    
+            if (teste.hitboxRetangulo(0f, 0f).intersects(areaDeAtaque)) {
+                if (teste.possoAtacar == false) {
+
+                } else {
+                    if (teste.isBot == true) {
+                        System.out.println("salvar");
+                        Salvar(teste);
+
+                    } else {
+                        //System.out.println("caiu4");
+                        //System.out.println(teste);
+                        teste.atacar(10);
+                    }
+                    return;
                 }
             }
         }
-        
+
     }
 
-    private String pegarEntradas()
-    {
+    private String pegarEntradas() {
         monstroPositionX = 0;
         monstroPositionY = 0;
         Boolean validate = false;
         String posicao = "";
-        if(acessar.pegarTeclado().w)
-        {
+        if (acessar.pegarTeclado().w) {
             validate = true;
             monstroPositionY = -velocidade;
             posicao = "Cima";
         }
-         if(acessar.pegarTeclado().a)
-        {
+        if (acessar.pegarTeclado().a) {
             validate = true;
             monstroPositionX = -velocidade;
             posicao = "Esquerda";
         }
-        if(acessar.pegarTeclado().s)
-        {
+        if (acessar.pegarTeclado().s) {
             validate = true;
             monstroPositionY = +velocidade;
             posicao = "Baixo";
         }
-        if(acessar.pegarTeclado().d)
-        {
+        if (acessar.pegarTeclado().d) {
             validate = true;
             monstroPositionX = +velocidade;
             posicao = "Direita";
         }
-        if(validate == false)
-        {
+        if (validate == false) {
             return "Cima";
-        }
-        else
-        {
+        } else {
             return posicao;
         }
-        
+
     }
-    
-   
+
     @Override
     public void renderizar(Graphics grafico) {
-        grafico.drawImage(CarregarImagens.jogador, (int) (x - acessar.pegarCamera().getX()), (int) (y - acessar.pegarCamera().getY()), largura , altura , null);
+        grafico.drawImage(CarregarImagens.jogador, (int) (x - acessar.pegarCamera().getX()), (int) (y - acessar.pegarCamera().getY()), largura, altura, null);
         grafico.setColor(Color.RED);
         // se não somar o x com a hitbox a hitbox vai ficar colada longe do personagem
         // o mesmo vale para o y
         //grafico.fillRect((int) (x + hitboxObjetos.x - acessar.pegarCamera().getX()), (int) (y + hitboxObjetos.y - acessar.pegarCamera().getY()),
-             // hitboxObjetos.width, hitboxObjetos.height);
-        
+        // hitboxObjetos.width, hitboxObjetos.height);
+
     }
+    
+    public void renderizar(Graphics grafico,BufferedImage imagem) {
+        grafico.drawImage(imagem, (int) (x - acessar.pegarCamera().getX()), (int) (y - acessar.pegarCamera().getY()), largura, altura, null);
+        grafico.setColor(Color.RED);
+        // se não somar o x com a hitbox a hitbox vai ficar colada longe do personagem
+        // o mesmo vale para o y
+        //grafico.fillRect((int) (x + hitboxObjetos.x - acessar.pegarCamera().getX()), (int) (y + hitboxObjetos.y - acessar.pegarCamera().getY()),
+        // hitboxObjetos.width, hitboxObjetos.height);
+
+    }
+    
 
     @Override
     public void Morrer() {
         System.out.println("Seems like you died lol");
     }
-    
+
+    public void Salvar(Entity entidade) {
+         System.out.println("salvou");
+        entidade.possoAtacar = false;
+        entidade.imgBot = "curado.png";
+        
+    }
 
 }

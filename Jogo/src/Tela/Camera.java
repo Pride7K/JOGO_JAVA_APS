@@ -4,6 +4,7 @@ package Tela;
 import Entities.Entity;
 import Inicializador.Acessar;
 import Inicializador.Jogo;
+import javax.swing.JLabel;
 
 /**
  *
@@ -26,6 +27,7 @@ public class Camera {
         // centralizar camera no player
         x = personagem.getX() - acessar.pegarLargura() / 2 + personagem.getLargura()/ 2;
         y = personagem.getY() - acessar.pegarAltura() / 2 + personagem.getAltura()/ 2;
+       
     }
     
     public void mover(float x2,float y2 )

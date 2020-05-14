@@ -16,6 +16,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JLabel;
 
 public class Mundo {
 
@@ -28,7 +29,6 @@ public class Mundo {
 
     public Mundo(Acessar acessar, String caminho) {
         this.acessar = acessar;
-        
         
         gerarEntidades = new GerarObjetos_No_Mapa(acessar,new Jogador(acessar,550,450));
         

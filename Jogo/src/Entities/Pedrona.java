@@ -39,5 +39,6 @@ public class Pedrona  extends EntityParaObjetosStaticos{
     public void renderizar(Graphics grafico) {
         grafico.drawImage(CarregarImagens.pedrona,(int) (x - acessar.pegarCamera().getX()),(int) (y - acessar.pegarCamera().getY()), largura, altura, null);
     }
+
     
 }

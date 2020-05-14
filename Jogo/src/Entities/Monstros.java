@@ -7,6 +7,7 @@ import Inicializador.Acessar;
 import Inicializador.Jogo;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 public abstract class Monstros extends Entity {
 
@@ -22,6 +23,10 @@ public abstract class Monstros extends Entity {
     private CarregarImagens imagens;
 
     private int mover = 1;
+    private int moverBot = 1;
+
+    private float lastX;
+    private float lastY;
 
     protected int vida;
     protected float velocidade;
@@ -47,79 +52,205 @@ public abstract class Monstros extends Entity {
     public void Mover(Jogador jogador) {
         if (!esbarrouComObjeto(monstroPositionX, 0f)) {
             MoverPosicaoX(jogador);
+            //System.out.println("Jogador X = " + monstroPositionX);
         }
         if (!esbarrouComObjeto(0f, monstroPositionY)) {
             MoverPosicaoY(jogador);
+            //System.out.println("Jogador Y = " + jogador.y);
+        }
+    }
+
+    public void Mover(Pessoas pessoa) {
+        if (!esbarrouComObjeto(monstroPositionX, 0f)) {
+
+            for (int i = 0; i < acessar.pegarMundo().getGerarEntidades().getObjetosEntity().size(); i++) {
+                Entity teste = acessar.pegarMundo().getGerarEntidades().getObjetosEntity().get(i);
+                if (teste.isPlayer == true) {
+                    float longitudeX1 = teste.x - pessoa.x;
+                    float latitudeY1 = teste.y - pessoa.y;
+                    if (pessoa.x != teste.x) {
+                        MoverPosicaoX(pessoa, teste, longitudeX1);
+                    }
+                }
+            }
+
+        } else {
+            float testeX = monstroPositionX - 1;
+            System.out.println("caiu no else o X lol");
+            if (!esbarrouComObjeto(testeX, 0f)) {
+                pessoa.x = monstroPositionX - 1;
+                System.out.println("X batendo na Esquerda");
+            } else {
+                testeX = monstroPositionX+ 1;
+                if (!esbarrouComObjeto(testeX, 0f)) {
+                    pessoa.x = monstroPositionX + 1;
+                } else {
+                    //System.out.println("X batendo na direita");
+                }
+            }
+        }
+        if (!esbarrouComObjeto(0f, monstroPositionY)) {
+            for (int i = 0; i < acessar.pegarMundo().getGerarEntidades().getObjetosEntity().size(); i++) {
+                Entity teste = acessar.pegarMundo().getGerarEntidades().getObjetosEntity().get(i);
+                if (teste.isPlayer == true) {
+                    float longitudeX1 = teste.x - pessoa.x;
+                    float latitudeY1 = teste.y - pessoa.y;
+                    if (pessoa.y != teste.y) {
+                        MoverPosicaoY(pessoa, teste, latitudeY1);
+                    }
+                }
+
+            }
+        } else {
+            float testeY = monstroPositionY+ 1;
+            System.out.println("caiu no else o Y lol");
+            if (!esbarrouComObjeto(testeY, 0f)) {
+                pessoa.y = monstroPositionY+ 1;
+                System.out.println("Y Cima");
+            } else {
+                testeY = monstroPositionY - 1;
+                if (!esbarrouComObjeto(testeY, 0f)) {
+                    pessoa.y = monstroPositionY - 1;
+                } else {
+                    //System.out.println("Y Baixo");
+                }
+            }
         }
     }
 
     public void Mover(Inimigo inimigo) {
-        for (int i = 0; i < acessar.pegarMundo().getGerarEntidades().getObjetosEntity().size(); i++) {
-            Entity teste = acessar.pegarMundo().getGerarEntidades().getObjetosEntity().get(i);
-            if (teste.isPlayer == true) {
-                float longitudeX1 = teste.x - inimigo.x;
-                float latitudeY1 = teste.y - inimigo.y;
-                if (inimigo.x != teste.x) {
-                    MoverPosicaoX(inimigo, teste, longitudeX1);
-                }
-                if (inimigo.y != teste.y) {
-                    MoverPosicaoY(inimigo, teste, latitudeY1);
+        if (!esbarrouComObjeto(monstroPositionX, 0f)) {
+            for (int i = 0; i < acessar.pegarMundo().getGerarEntidades().getObjetosEntity().size(); i++) {
+                Entity teste = acessar.pegarMundo().getGerarEntidades().getObjetosEntity().get(i);
+                if (teste.isBot == true && teste.possoAtacar == true) {
+                    float longitudeX1 = teste.x - inimigo.x;
+                    float latitudeY1 = teste.y - inimigo.y;
+                    if (inimigo.x != teste.x) {
+                        MoverPosicaoX(inimigo, teste, longitudeX1);
+                    }
                 }
             }
         }
+        if (!esbarrouComObjeto(0f, monstroPositionY)) {
+            for (int i = 0; i < acessar.pegarMundo().getGerarEntidades().getObjetosEntity().size(); i++) {
+                Entity teste = acessar.pegarMundo().getGerarEntidades().getObjetosEntity().get(i);
+                if (teste.isBot == true && teste.possoAtacar == true) {
+                    float longitudeX1 = teste.x - inimigo.x;
+                    float latitudeY1 = teste.y - inimigo.y;
+                    if (inimigo.y != teste.y) {
+                        MoverPosicaoY(inimigo, teste, latitudeY1);
+                    }
+                }
+            }
+        }
+
+    }
+
+    public void MoverPosicaoX(Pessoas pessoa, Entity jogador, float longitudeX1) {
+
+        if (longitudeX1 <= 0) {
+            int hitboxX = (int) (x + monstroPositionX + hitboxObjetos.x + hitboxObjetos.width) / Texturas.Texturas_Mundo.largura_textura;
+            if (colidiuTextura(hitboxX, (int) (y + hitboxObjetos.y) / Texturas.Texturas_Mundo.altura_textura) == false && colidiuTextura(hitboxX, (int) (y + hitboxObjetos.y + hitboxObjetos.height) / Texturas.Texturas_Mundo.altura_textura) == false) {
+                if (moverBot == 4) {
+                    moverBot = 2;
+                } else {
+                    moverBot++;
+                }
+                //atualizarSprite(moverBot, "Esquerda", pessoa);
+                pessoa.x = pessoa.x + 2;
+            }
+        } else if (longitudeX1 >= 0) {
+            int hitboxX = (int) (x + monstroPositionX + hitboxObjetos.x) / Texturas.Texturas_Mundo.largura_textura;
+            if (colidiuTextura(hitboxX, (int) (y + hitboxObjetos.y) / Texturas.Texturas_Mundo.altura_textura) == false && colidiuTextura(hitboxX, (int) (y + hitboxObjetos.y + hitboxObjetos.height) / Texturas.Texturas_Mundo.altura_textura) == false) {
+                pessoa.x = pessoa.x - 2;
+                if (moverBot == 4) {
+                    moverBot = 1;
+                } else {
+                    moverBot++;
+                }
+                //atualizarSprite(moverBot, "Direita", pessoa);   
+            }
+        }
+
+    }
+
+    public void MoverPosicaoY(Pessoas pessoa, Entity jogador, float latitudeY1) {
+
+        if (latitudeY1 <= 0) {
+            int hitboxY = (int) (y + monstroPositionY + hitboxObjetos.y + hitboxObjetos.height) / Texturas.Texturas_Mundo.altura_textura;
+            //System.out.println(hitboxX);
+            if (colidiuTextura((int) (x + hitboxObjetos.x) / Texturas.Texturas_Mundo.largura_textura, hitboxY) == false) {
+
+                if (moverBot == 4) {
+                    moverBot = 1;
+                } else {
+                    moverBot++;
+                }
+                pessoa.y = pessoa.y + 2;
+            }
+        } else if (latitudeY1 >= 0) {
+            int hitboxY = (int) (y + monstroPositionY + hitboxObjetos.y) / Texturas.Texturas_Mundo.altura_textura;
+            //System.out.println(hitboxX);
+            if (colidiuTextura((int) (x + hitboxObjetos.x) / Texturas.Texturas_Mundo.largura_textura, hitboxY) == false) {
+                if (moverBot == 4) {
+                    moverBot = 1;
+                } else {
+                    moverBot++;
+                }
+                //atualizarSprite(moverBot, "Baixo", pessoa);
+                pessoa.y = pessoa.y - 2;
+            }
+        }
+
     }
 
     public void MoverPosicaoX(Inimigo inimigo, Entity jogador, float longitudeX1) {
         //System.out.println("caiu");
         //System.out.println(inimigo.x);
-        /*
+
         if (longitudeX1 <= 0) {
-            System.out.println("caiu2");
-            int hitboxX = (int) (x + inimigo.x + hitboxObjetos.x + hitboxObjetos.width) / Texturas.Texturas_Mundo.largura_textura;
+            int hitboxX = (int) (x + monstroPositionX + hitboxObjetos.x + hitboxObjetos.width) / Texturas.Texturas_Mundo.largura_textura;
             if (colidiuTextura(hitboxX, (int) (y + hitboxObjetos.y) / Texturas.Texturas_Mundo.altura_textura) == false && colidiuTextura(hitboxX, (int) (y + hitboxObjetos.y + hitboxObjetos.height) / Texturas.Texturas_Mundo.altura_textura) == false) {
-                System.out.println("finalizasso2");
                 inimigo.x = inimigo.x - 1;
             }
         } else if (longitudeX1 >= 0) {
-            System.out.println("caiu3");
-            int hitboxX = (int) (x + inimigo.x + hitboxObjetos.x) / Texturas.Texturas_Mundo.largura_textura;
+            int hitboxX = (int) (x + monstroPositionX + hitboxObjetos.x) / Texturas.Texturas_Mundo.largura_textura;
             if (colidiuTextura(hitboxX, (int) (y + hitboxObjetos.y) / Texturas.Texturas_Mundo.altura_textura) == false && colidiuTextura(hitboxX, (int) (y + hitboxObjetos.y + hitboxObjetos.height) / Texturas.Texturas_Mundo.altura_textura) == false) {
-                System.out.println("finalizasso3");
                 inimigo.x = inimigo.x + 1;
             }
         }
-*/
-        
+        /*
         if (longitudeX1 <= 0) {
-            inimigo.x = inimigo.x - 1;
+            inimigo.x = inimigo.x - 2;
         } else if (longitudeX1 >= 0) {
-            inimigo.x = inimigo.x + 1;
+            inimigo.x = inimigo.x + 2;
         }
-         
+         */
     }
 
     public void MoverPosicaoY(Inimigo inimigo, Entity jogador, float latitudeY1) {
-/*
+
         if (latitudeY1 <= 0) {
-            int hitboxY = (int) (y + inimigo.y + hitboxObjetos.y + hitboxObjetos.height) / Texturas.Texturas_Mundo.altura_textura;
+            int hitboxY = (int) (y + monstroPositionY + hitboxObjetos.y + hitboxObjetos.height) / Texturas.Texturas_Mundo.altura_textura;
             //System.out.println(hitboxX);
             if (colidiuTextura((int) (x + hitboxObjetos.x) / Texturas.Texturas_Mundo.largura_textura, hitboxY) == false) {
                 inimigo.y = inimigo.y - 1;
             }
         } else if (monstroPositionY >= 0) {
-            int hitboxY = (int) (y + inimigo.y  + hitboxObjetos.y) / Texturas.Texturas_Mundo.altura_textura;
+            int hitboxY = (int) (y + monstroPositionY + hitboxObjetos.y) / Texturas.Texturas_Mundo.altura_textura;
             //System.out.println(hitboxX);
             if (colidiuTextura((int) (x + hitboxObjetos.x) / Texturas.Texturas_Mundo.largura_textura, hitboxY) == false) {
                 inimigo.y = inimigo.y + 1;
             }
         }
-        */
+        /*
+        //System.out.println(latitudeY1);
         if (latitudeY1 <= 0) {
-            inimigo.y = inimigo.y - 1;
+            inimigo.y = inimigo.y - 2;
         } else if (latitudeY1 >= 0) {
-            inimigo.y = inimigo.y + 1;
+            inimigo.y = inimigo.y + 2;
         }
-       
+         */
     }
 
     public void MoverPosicaoX(Jogador jogador) {
@@ -157,6 +288,27 @@ public abstract class Monstros extends Entity {
             }
         }
 
+    }
+
+    public void atualizarSprite(int mover, String lado, Pessoas pessoa) {
+        String caminho = System.getProperty("user.dir");
+        if (lado == "Direita") {
+            BufferedImage sprite = (TransformarEmBuffered.carregaImg(caminho + "\\coisas\\images\\Pessoas\\direito.png"));
+            imagens.pessoas = cortarImagem(0, 0, 40, 53, sprite);
+        }
+        if (lado == "Esquerda") {
+            BufferedImage sprite = (TransformarEmBuffered.carregaImg(caminho + "\\coisas\\images\\Pessoas\\direito.png"));
+            imagens.pessoas = cortarImagem(0, 0, 40, 53, sprite);
+        }
+        if (lado == "Cima") {
+            BufferedImage sprite = (TransformarEmBuffered.carregaImg(caminho + "\\coisas\\images\\Pessoas\\direito.png"));
+            imagens.pessoas = cortarImagem(0, 0, 40, 53, sprite);
+        }
+        if (lado == "Baixo") {
+
+            BufferedImage sprite = (TransformarEmBuffered.carregaImg(caminho + "\\coisas\\images\\Pessoas\\direito.png"));
+            imagens.pessoas = cortarImagem(0, 0, 40, 53, sprite);
+        }
     }
 
     public void atualizarSprite(int mover, String lado, Jogador jogador) {

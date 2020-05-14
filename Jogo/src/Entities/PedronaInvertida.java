@@ -36,6 +36,8 @@ public class PedronaInvertida extends EntityParaObjetosStaticos {
     public void renderizar(Graphics grafico) {
         grafico.drawImage(CarregarImagens.pedronaInvertida,(int) (x - acessar.pegarCamera().getX()),(int) (y - acessar.pegarCamera().getY()), largura, altura, null);
     }
+
+
     
     
 }

@@ -46,5 +46,7 @@ public class Casa extends EntityParaObjetosStaticos{
         //grafico.fillRect((int) (x + hitboxObjetos.x - acessar.pegarCamera().getX()), (int) (y + hitboxObjetos.y - acessar.pegarCamera().getY()),
           //      hitboxObjetos.width, hitboxObjetos.height);
     }
+
+
     
 }

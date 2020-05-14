@@ -54,21 +54,20 @@ public class Inimigo extends Monstros {
         areaDeAtaque.width = areaHitbox;
         areaDeAtaque.height = areaHitbox;
 
-        areaDeAtaque.x = hitboxPersonagem.x + hitboxPersonagem.width / 2 ;
+        areaDeAtaque.x = hitboxPersonagem.x + hitboxPersonagem.width / 2;
         areaDeAtaque.y = hitboxPersonagem.y;
 
         //System.out.println("ataque area");
-
         for (int i = 0; i < acessar.pegarMundo().getGerarEntidades().getObjetosEntity().size(); i++) {
             Entity teste = acessar.pegarMundo().getGerarEntidades().getObjetosEntity().get(i);
             if (teste == this) {
                 continue;
             }
             if (teste.hitboxRetangulo(0f, 0f).intersects(areaDeAtaque)) {
-                if (teste.possoAtacar == false) {
+                if (teste.possoAtacar == false && teste.isBot == false) {
 
                 } else {
-                    if (teste.isPlayer == true) {
+                    if (teste.isBot == true) {
 
                         teste.atacar(10);
                         return;
@@ -92,7 +91,8 @@ public class Inimigo extends Monstros {
 
     @Override
     public void Morrer() {
-         System.out.println("Bot morreu");
+        System.out.println("Bot morreu");
     }
+
 
 }

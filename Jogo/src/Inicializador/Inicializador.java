@@ -11,7 +11,7 @@ public class Inicializador {
     
     public static void main(String [] args)
     {
-        Jogo jogo = new Jogo("Jogo top",720,720);
+        Jogo jogo = new Jogo("Killing 2 Live",720,720);
         jogo.iniciar();
     }
     
