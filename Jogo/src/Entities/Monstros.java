@@ -65,7 +65,7 @@ public abstract class Monstros extends Entity {
 
             for (int i = 0; i < acessar.pegarMundo().getGerarEntidades().getObjetosEntity().size(); i++) {
                 Entity teste = acessar.pegarMundo().getGerarEntidades().getObjetosEntity().get(i);
-                if (teste.isPlayer == true) {
+                if (teste.isInimigo == true) {
                     float longitudeX1 = teste.x - pessoa.x;
                     float latitudeY1 = teste.y - pessoa.y;
                     if (pessoa.x != teste.x) {
@@ -73,26 +73,22 @@ public abstract class Monstros extends Entity {
                     }
                 }
             }
-
         } else {
-            float testeX = monstroPositionX - 1;
-            System.out.println("caiu no else o X lol");
-            if (!esbarrouComObjeto(testeX, 0f)) {
-                pessoa.x = monstroPositionX - 1;
-                System.out.println("X batendo na Esquerda");
-            } else {
-                testeX = monstroPositionX+ 1;
-                if (!esbarrouComObjeto(testeX, 0f)) {
-                    pessoa.x = monstroPositionX + 1;
-                } else {
-                    //System.out.println("X batendo na direita");
+            for (int i = 0; i < acessar.pegarMundo().getGerarEntidades().getObjetosEntity().size(); i++) {
+                Entity teste = acessar.pegarMundo().getGerarEntidades().getObjetosEntity().get(i);
+                if (teste.isInimigo == true) {
+                    float longitudeX1 = teste.x - pessoa.x;
+                    float latitudeY1 = teste.y - pessoa.y;
+                    if (pessoa.x != teste.x) {
+                        MoverPosicaoXReverso(pessoa, teste, longitudeX1);
+                    }
                 }
             }
         }
         if (!esbarrouComObjeto(0f, monstroPositionY)) {
             for (int i = 0; i < acessar.pegarMundo().getGerarEntidades().getObjetosEntity().size(); i++) {
                 Entity teste = acessar.pegarMundo().getGerarEntidades().getObjetosEntity().get(i);
-                if (teste.isPlayer == true) {
+                if (teste.isInimigo == true) {
                     float longitudeX1 = teste.x - pessoa.x;
                     float latitudeY1 = teste.y - pessoa.y;
                     if (pessoa.y != teste.y) {
@@ -102,20 +98,19 @@ public abstract class Monstros extends Entity {
 
             }
         } else {
-            float testeY = monstroPositionY+ 1;
-            System.out.println("caiu no else o Y lol");
-            if (!esbarrouComObjeto(testeY, 0f)) {
-                pessoa.y = monstroPositionY+ 1;
-                System.out.println("Y Cima");
-            } else {
-                testeY = monstroPositionY - 1;
-                if (!esbarrouComObjeto(testeY, 0f)) {
-                    pessoa.y = monstroPositionY - 1;
-                } else {
-                    //System.out.println("Y Baixo");
+            for (int i = 0; i < acessar.pegarMundo().getGerarEntidades().getObjetosEntity().size(); i++) {
+                Entity teste = acessar.pegarMundo().getGerarEntidades().getObjetosEntity().get(i);
+                if (teste.isInimigo == true) {
+                    float longitudeX1 = teste.x - pessoa.x;
+                    float latitudeY1 = teste.y - pessoa.y;
+                    if (pessoa.y != teste.y) {
+                        MoverPosicaoYReverso(pessoa, teste, latitudeY1);
+                    }
                 }
+
             }
         }
+
     }
 
     public void Mover(Inimigo inimigo) {
@@ -146,6 +141,38 @@ public abstract class Monstros extends Entity {
 
     }
 
+    public void MoverPosicaoXReverso(Pessoas pessoa, Entity jogador, float longitudeX1) {
+        System.out.println("caiu no reverso " + longitudeX1);
+        if (longitudeX1 <= 0) {
+            System.out.println("teste 1");
+            int hitboxX = (int) (x + monstroPositionX + hitboxObjetos.x + hitboxObjetos.width) / Texturas.Texturas_Mundo.largura_textura;
+            if (colidiuTextura(hitboxX, (int) (y + hitboxObjetos.y) / Texturas.Texturas_Mundo.altura_textura) == false && colidiuTextura(hitboxX, (int) (y + hitboxObjetos.y + hitboxObjetos.height) / Texturas.Texturas_Mundo.altura_textura) == false) {
+                System.out.println("teste 1 deu certo");
+                if (moverBot == 4) {
+                    moverBot = 2;
+                } else {
+                    moverBot++;
+                }
+                //atualizarSprite(moverBot, "Esquerda", pessoa);
+                x = x - 1;
+            }
+        } else if (longitudeX1 >= 0) {
+            System.out.println("teste 2");
+            int hitboxX = (int) (x + monstroPositionX + hitboxObjetos.x) / Texturas.Texturas_Mundo.largura_textura;
+            if (colidiuTextura(hitboxX, (int) (y + hitboxObjetos.y) / Texturas.Texturas_Mundo.altura_textura) == false && colidiuTextura(hitboxX, (int) (y + hitboxObjetos.y + hitboxObjetos.height) / Texturas.Texturas_Mundo.altura_textura) == false) {
+                System.out.println("teste 2 deu certo");
+                if (moverBot == 4) {
+                    moverBot = 1;
+                } else {
+                    moverBot++;
+                }
+                //atualizarSprite(moverBot, "Direita", pessoa);   
+                x = x + 1;
+            }
+        }
+
+    }
+
     public void MoverPosicaoX(Pessoas pessoa, Entity jogador, float longitudeX1) {
 
         if (longitudeX1 <= 0) {
@@ -157,18 +184,49 @@ public abstract class Monstros extends Entity {
                     moverBot++;
                 }
                 //atualizarSprite(moverBot, "Esquerda", pessoa);
-                pessoa.x = pessoa.x + 2;
+                x = x + 1;
             }
         } else if (longitudeX1 >= 0) {
             int hitboxX = (int) (x + monstroPositionX + hitboxObjetos.x) / Texturas.Texturas_Mundo.largura_textura;
             if (colidiuTextura(hitboxX, (int) (y + hitboxObjetos.y) / Texturas.Texturas_Mundo.altura_textura) == false && colidiuTextura(hitboxX, (int) (y + hitboxObjetos.y + hitboxObjetos.height) / Texturas.Texturas_Mundo.altura_textura) == false) {
-                pessoa.x = pessoa.x - 2;
                 if (moverBot == 4) {
                     moverBot = 1;
                 } else {
                     moverBot++;
                 }
                 //atualizarSprite(moverBot, "Direita", pessoa);   
+                x = x - 1;
+            }
+        }
+
+    }
+
+    public void MoverPosicaoYReverso(Pessoas pessoa, Entity jogador, float latitudeY1) {
+
+        if (latitudeY1 <= 0) {
+            int hitboxY = (int) (y + monstroPositionY + hitboxObjetos.y + hitboxObjetos.height) / Texturas.Texturas_Mundo.altura_textura;
+            //System.out.println(hitboxX);
+            if (colidiuTextura((int) (x + hitboxObjetos.x) / Texturas.Texturas_Mundo.largura_textura, hitboxY) == false) {
+
+                if (moverBot == 4) {
+                    moverBot = 1;
+                } else {
+                    moverBot++;
+                }
+                y = y - 1;
+            }
+        } else if (latitudeY1 >= 0) {
+            int hitboxY = (int) (y + monstroPositionY + hitboxObjetos.y) / Texturas.Texturas_Mundo.altura_textura;
+            //System.out.println(hitboxX);
+            if (colidiuTextura((int) (x + hitboxObjetos.x) / Texturas.Texturas_Mundo.largura_textura, hitboxY) == false) {
+                if (moverBot == 4) {
+                    moverBot = 1;
+                } else {
+                    moverBot++;
+                }
+                //atualizarSprite(moverBot, "Baixo", pessoa);
+                y = y + 1;
+
             }
         }
 
@@ -186,7 +244,7 @@ public abstract class Monstros extends Entity {
                 } else {
                     moverBot++;
                 }
-                pessoa.y = pessoa.y + 2;
+                y = y + 1;
             }
         } else if (latitudeY1 >= 0) {
             int hitboxY = (int) (y + monstroPositionY + hitboxObjetos.y) / Texturas.Texturas_Mundo.altura_textura;
@@ -198,7 +256,8 @@ public abstract class Monstros extends Entity {
                     moverBot++;
                 }
                 //atualizarSprite(moverBot, "Baixo", pessoa);
-                pessoa.y = pessoa.y - 2;
+                y = y - 1;
+
             }
         }
 
@@ -211,12 +270,12 @@ public abstract class Monstros extends Entity {
         if (longitudeX1 <= 0) {
             int hitboxX = (int) (x + monstroPositionX + hitboxObjetos.x + hitboxObjetos.width) / Texturas.Texturas_Mundo.largura_textura;
             if (colidiuTextura(hitboxX, (int) (y + hitboxObjetos.y) / Texturas.Texturas_Mundo.altura_textura) == false && colidiuTextura(hitboxX, (int) (y + hitboxObjetos.y + hitboxObjetos.height) / Texturas.Texturas_Mundo.altura_textura) == false) {
-                inimigo.x = inimigo.x - 1;
+                x = x - 1;
             }
         } else if (longitudeX1 >= 0) {
             int hitboxX = (int) (x + monstroPositionX + hitboxObjetos.x) / Texturas.Texturas_Mundo.largura_textura;
             if (colidiuTextura(hitboxX, (int) (y + hitboxObjetos.y) / Texturas.Texturas_Mundo.altura_textura) == false && colidiuTextura(hitboxX, (int) (y + hitboxObjetos.y + hitboxObjetos.height) / Texturas.Texturas_Mundo.altura_textura) == false) {
-                inimigo.x = inimigo.x + 1;
+                x = x + 1;
             }
         }
         /*
@@ -234,13 +293,13 @@ public abstract class Monstros extends Entity {
             int hitboxY = (int) (y + monstroPositionY + hitboxObjetos.y + hitboxObjetos.height) / Texturas.Texturas_Mundo.altura_textura;
             //System.out.println(hitboxX);
             if (colidiuTextura((int) (x + hitboxObjetos.x) / Texturas.Texturas_Mundo.largura_textura, hitboxY) == false) {
-                inimigo.y = inimigo.y - 1;
+                y = y - 1;
             }
         } else if (monstroPositionY >= 0) {
             int hitboxY = (int) (y + monstroPositionY + hitboxObjetos.y) / Texturas.Texturas_Mundo.altura_textura;
             //System.out.println(hitboxX);
             if (colidiuTextura((int) (x + hitboxObjetos.x) / Texturas.Texturas_Mundo.largura_textura, hitboxY) == false) {
-                inimigo.y = inimigo.y + 1;
+                y = y + 1;
             }
         }
         /*

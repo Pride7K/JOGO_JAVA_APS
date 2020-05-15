@@ -22,6 +22,8 @@ public class JogoPagina extends Metodos {
     {
         super(acessar);
         mundo = new Mundo(acessar,"C:\\Users\\gsant\\Desktop\\APS_JAVA\\Jogo\\src\\Texturas\\GerarMundo.txt");
+        JOptionPane.showMessageDialog(null, "Salve o máximo de pessoas antes que a covid as alcance");
+        JOptionPane.showMessageDialog(null, "Para Salvar/Atacar pressione a tecla Espaço!");
         acessar.setarMundo(mundo);
         //mundo = new Plano_Fundo(acessar.getJogo(),"C:\\Users\\gsant\\Desktop\\APS_JAVA\\Jogo\\src\\Texturas\\GerarMundo.txt");
         
@@ -30,7 +32,6 @@ public class JogoPagina extends Metodos {
     @Override
     public void atualizar() {
         //System.out.println("caiu");
-        JOptionPane.showMessageDialog(null, "sla mano");
         mundo.atualizar();
         //acessar.pegarCamera().centralizar(jogador);
         //jogo.pegarCamera().mover(1, 1);
@@ -40,6 +41,7 @@ public class JogoPagina extends Metodos {
     public void renderizar(Graphics graficos) {
         //graficos.drawImage(SuaviazarCarregamentoImagem.imagem1, 0, 0, null);
         //graficos.drawImage(SuaviazarCarregamentoImagem.mapa, 0, 0,720,720,null);
+
         mundo.renderizar(graficos);
         //Texturas.texturas[1].renderizar(graficos, 65, 53);
     }

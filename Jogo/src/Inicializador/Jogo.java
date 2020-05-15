@@ -15,6 +15,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 // implements Runnable para possibilitar o uso de threads
 // com o uso de threads é possivel atualizar variaveis
@@ -42,7 +44,7 @@ public class Jogo implements Runnable {
 
     // input para as teclas
     private Teclado teclado;
-    
+
     private Mouse mouse;
 
     // paginas
@@ -175,6 +177,9 @@ public class Jogo implements Runnable {
         long frames = 0;
 
         while (funcionando == true) {
+
+            // com isso eu consigo calcular que meu jogo só ira atualizar e renderizar depois de 1 segundo
+            // e a 60 fps
             tempoAgora = System.nanoTime();
             delta += (tempoAgora - ultimoTempoAgora) / tempoRenderizar;
             tempo += tempoAgora - ultimoTempoAgora;
@@ -185,12 +190,27 @@ public class Jogo implements Runnable {
                 renderizar();
                 frames++;
                 delta--;
+
             }
 
+            //atualizar();
+            //renderizar();
+            // ou seja 1 segundo
             if (tempo >= 1000000000) {
                 //System.out.println(frames);
-                frames = 0;
-                tempo = 0;
+                if (acessar.pegarMundo().getTempoRestante() == 0) {
+                    JOptionPane.showMessageDialog(null, "Tempo Esgostou !!!");
+                    System.out.println("Fim da aplicação");
+                    JFrame tela2 = tela.pegarTela();
+                    tela2.setVisible(false);
+                    tela2.dispose();
+                    tela.setarTela(tela2);
+                    parar();
+                } else {
+                    frames = 0;
+                    tempo = 0;
+                    acessar.pegarMundo().setTempoRestante(acessar.pegarMundo().getTempoRestante() - 1);
+                }
             }
         }
 

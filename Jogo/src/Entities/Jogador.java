@@ -173,10 +173,10 @@ public class Jogador extends Monstros {
     }
 
     public void Salvar(Entity entidade) {
-         System.out.println("salvou");
+        System.out.println("salvou");
         entidade.possoAtacar = false;
         entidade.imgBot = "curado.png";
-        
+        acessar.pegarMundo().setNumeroSalvos(acessar.pegarMundo().getNumeroSalvos() + 1);
     }
 
 }

@@ -8,6 +8,8 @@ package Tela;
 import java.awt.Canvas;
 import java.awt.Dimension;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 /**
  *
@@ -47,7 +49,12 @@ public class Tela {
             canvas.setMinimumSize(new Dimension(altura, largura));
             // se não setar como false vai bugar o teclado
             canvas.setFocusable(false);
-            
+            JPanel panel = new JPanel();
+            panel.setLayout(null);
+            JLabel teste = new JLabel();
+            teste.setText("lol");
+            teste.setBounds(100, 100, altura, largura);
+            teste.setLocation(300, 300);
             tela.add(canvas);
             tela.pack();
             
@@ -61,5 +68,11 @@ public class Tela {
     {
         return tela;
     }
+    
+    public void setarTela(JFrame tela)
+    {
+         this.tela = tela;
+    }
+    
     
 }

@@ -9,6 +9,8 @@ import Entities.Pedrona;
 import Entities.PedronaInvertida;
 import Inicializador.Acessar;
 import Inicializador.Jogo;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -24,6 +26,9 @@ public class Mundo {
     private int positionX, positionY;
     private int[][] planoFundo;
     private Acessar acessar;
+    public int numeroSalvos = 0;
+    public float tempoRestante = 60;
+    
     
     public GerarObjetos_No_Mapa gerarEntidades;
 
@@ -132,8 +137,28 @@ public class Mundo {
 
             }
         }
-        //System.out.println("saiu");
+        System.out.println("saiu");
+        grafico.setColor(Color.red);
+        grafico.setFont(new Font("TimesRoman", Font.PLAIN, 15));
+        grafico.drawString("Tempo restante: " + tempoRestante ,(int) 500,(int) 50);
+        grafico.drawString("Salvos: " + numeroSalvos,(int) 650,(int) 50);
         gerarEntidades.renderizar(grafico);
+    }
+
+    public int getNumeroSalvos() {
+        return numeroSalvos;
+    }
+
+    public void setNumeroSalvos(int numeroSalvos) {
+        this.numeroSalvos = numeroSalvos;
+    }
+
+    public float getTempoRestante() {
+        return tempoRestante;
+    }
+
+    public void setTempoRestante(float tempoRestante) {
+        this.tempoRestante = tempoRestante;
     }
 
     public Texturas_Mundo pegarTextura(int x, int y) {

@@ -26,12 +26,11 @@ public class Pessoas extends Monstros {
         this.acessar = acessar;
         this.isBot = true;
         this.possoPassar = true;
-
         // desenhar hitbox no personagem
-        hitboxObjetos.x = 1;
-        hitboxObjetos.y = 1;
-        hitboxObjetos.width = Monstros.largura_padrao ;
-        hitboxObjetos.height = Monstros.altura_padrao ;
+        hitboxObjetos.x = 0;
+        hitboxObjetos.y = 0;
+        hitboxObjetos.width = 40;
+        hitboxObjetos.height = 53;
 
     }
 

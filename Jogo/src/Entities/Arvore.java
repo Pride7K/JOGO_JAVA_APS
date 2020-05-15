@@ -26,7 +26,7 @@ public class Arvore extends EntityParaObjetosStaticos{
         //System.out.println(y);
         this.acessar = acessar;
         this.possoPassar = true;
-        
+        this.possoAtacar = false;
         // desenhar hitbox da arvore
         //hitboxObjetos.x = 0;
         //hitboxObjetos.y = 0;

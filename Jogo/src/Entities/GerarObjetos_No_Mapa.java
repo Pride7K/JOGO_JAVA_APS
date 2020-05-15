@@ -18,7 +18,7 @@ import java.util.Random;
 public class GerarObjetos_No_Mapa {
     private Acessar acessar;
     private Jogador jogador;
-    private ArrayList<Entity> ObjetosEntity;
+    public static ArrayList<Entity> ObjetosEntity;
     
     private Comparator<Entity> ordernarEntidades = new Comparator<Entity>() {
         
@@ -63,17 +63,17 @@ public class GerarObjetos_No_Mapa {
             {
                 contador++;
             }
-            if(entidade.isBot == true)
+            if(entidade.isBot == true && entidade.possoAtacar == true)
             {
                 contador2++;
             }
         }
-        if(contador <= 0)
+        if(contador <= 1)
         {
                  Random gerador = new Random();
                  adicionarObjeto(new Inimigo(acessar,gerador.nextInt(2000),gerador.nextInt(2000)));    
         }
-        if(contador2 <= 1)
+        if(contador2 <= 3)
         {
                  Random gerador = new Random();
                  adicionarObjeto(new Pessoas(acessar,gerador.nextInt(2000),gerador.nextInt(2000)));    
@@ -114,6 +114,11 @@ public class GerarObjetos_No_Mapa {
             Entity entidade = ObjetosEntity.get(i);
             entidade.renderizar(grafico);
         }
+    }
+    
+    public static void removerObjeto(Entity objeto)           
+    {
+        ObjetosEntity.remove(objeto);
     }
     
     public void adicionarObjeto(Entity objeto)           
