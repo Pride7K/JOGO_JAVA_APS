@@ -21,7 +21,8 @@ public class JogoPagina extends Metodos {
     public JogoPagina(Acessar acessar)
     {
         super(acessar);
-        mundo = new Mundo(acessar,"C:\\Users\\gsant\\Desktop\\APS_JAVA\\Jogo\\src\\Texturas\\GerarMundo.txt");
+        String caminho = System.getProperty("user.dir");
+        mundo = new Mundo(acessar,caminho + "\\src\\Texturas\\GerarMundo.txt");
         JOptionPane.showMessageDialog(null, "Salve o máximo de pessoas antes que a covid as alcance");
         JOptionPane.showMessageDialog(null, "Para Salvar/Atacar pressione a tecla Espaço!");
         acessar.setarMundo(mundo);

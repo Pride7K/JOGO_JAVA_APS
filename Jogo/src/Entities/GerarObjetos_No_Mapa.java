@@ -68,12 +68,12 @@ public class GerarObjetos_No_Mapa {
                 contador2++;
             }
         }
-        if(contador <= 1)
+        if(contador <= 4)
         {
                  Random gerador = new Random();
                  adicionarObjeto(new Inimigo(acessar,gerador.nextInt(2000),gerador.nextInt(2000)));    
         }
-        if(contador2 <= 3)
+        if(contador2 <= 10)
         {
                  Random gerador = new Random();
                  adicionarObjeto(new Pessoas(acessar,gerador.nextInt(2000),gerador.nextInt(2000)));    
